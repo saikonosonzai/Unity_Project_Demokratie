@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 323d903fa166f7142ab1596a80dabe8c, type: 3}
+  m_Name: Pawn Fuse
+  m_EditorClassIdentifier: 
+  chessSprite: {fileID: 21300000, guid: 28bc4a1c9acbd4347af2796ee5989888, type: 3}
+  chessPrefab: {fileID: 1369031823080755803, guid: 54fb82f6285931a43927f243608dd3b6,
+    type: 3}

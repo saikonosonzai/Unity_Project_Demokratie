@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: e0112dd023dd61546a7cb348bbd4cad1
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - player: {fileID: 2867797881604529808, guid: b40da2e8773a8674788b83279f1d07c2, type: 3}
+  - statueRenderer: {instanceID: 0}
+  - puzzleUI: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

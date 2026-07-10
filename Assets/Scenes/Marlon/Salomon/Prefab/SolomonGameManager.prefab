@@ -1,0 +1,191 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2997976516591446730
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4771990257172162784}
+  - component: {fileID: 7504629798111136254}
+  m_Layer: 0
+  m_Name: ComicManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4771990257172162784
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2997976516591446730}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7963775837281053053}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7504629798111136254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2997976516591446730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ff0c8ed34749c041af0ecf3b3782792, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ComicManager
+  comicPanel: {fileID: 0}
+  candyCrushPanel: {fileID: 0}
+  comicImage: {fileID: 0}
+  comicText: {fileID: 0}
+  nextButton: {fileID: 0}
+  comicSprites:
+  - {fileID: 21300000, guid: 07c429234a63c404f9fb58cc1f7057f3, type: 3}
+  - {fileID: 21300000, guid: 09e7af6f5ee8ee84bb0a6d58f36b0f09, type: 3}
+  - {fileID: 21300000, guid: a4e717b9213bb2f46b094c6b63934417, type: 3}
+  - {fileID: 21300000, guid: 74a1fe021fec1914790b3fe70db6cf9b, type: 3}
+  - {fileID: 21300000, guid: d44e5b259b483694cb27daa3fb7027b2, type: 3}
+  - {fileID: 21300000, guid: 98258172c749cc54b8b84f1bd16ddaf2, type: 3}
+  choicePanel: {fileID: 0}
+  leftChoiceButton: {fileID: 0}
+  rightChoiceButton: {fileID: 0}
+  leftChoiceText: {fileID: 0}
+  rightChoiceText: {fileID: 0}
+  finalQuestionText: Das Schwert ist angekommen. Welche Mutter ist die Richtige?
+  leftChoiceLabel: Links
+  rightChoiceLabel: Rechts
+  resultPanel: {fileID: 0}
+  resultImage: {fileID: 0}
+  resultText: {fileID: 0}
+  resultNextButton: {fileID: 0}
+  correctResultSprite: {fileID: 21300000, guid: 639ada4bc37b5c64c9ce7183bfc96b49, type: 3}
+  correctResultExplanation: "Richtig! Diese Wahl f\xFChrt zum Ziel. Du hast die Geschichte
+    erfolgreich beendet."
+  wrongResultSprite: {fileID: 21300000, guid: 3e612bf72a9ce784e92eaf117baaf0d7, type: 3}
+  wrongResultExplanation: "Falsch! Diese Wahl f\xFChrt nicht weiter. Das Schwert
+    muss noch einmal seinen Weg finden."
+  candyGame: {fileID: 2676148819887741927}
+  disableAfterCompleted: 1
+  paintingColliderToDisable: {fileID: 0}
+  objectToDisableAfterCompleted: {fileID: 0}
+  objectsToDisableWhenClosed: []
+  effectsToDisableWhenClosed: []
+  playerControlsToDisable:
+  - {fileID: 0}
+  cameraControlsToDisable:
+  - {fileID: 0}
+  playerRigidbody: {fileID: 0}
+  comicPages:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  candyStartsAfterPageIndex: 2
+--- !u!1 &4508534272111802085
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7963775837281053053}
+  m_Layer: 0
+  m_Name: SolomonGameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7963775837281053053
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4508534272111802085}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4771990257172162784}
+  - {fileID: 6984027733170000866}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5264916432023946355
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6984027733170000866}
+  - component: {fileID: 2676148819887741927}
+  m_Layer: 0
+  m_Name: SwordGameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6984027733170000866
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5264916432023946355}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7963775837281053053}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2676148819887741927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5264916432023946355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ebfcc41392f5064cb84fa1a395b956e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BremerCandyGameUI
+  comicManager: {fileID: 7504629798111136254}
+  boardRoot: {fileID: 0}
+  infoText: {fileID: 0}
+  restartButton: {fileID: 0}
+  skipButton: {fileID: 0}
+  swordSprite: {fileID: 21300000, guid: f8884405207e0e5449b78ebfba99f053, type: 3}
+  normalSprites:
+  - {fileID: 21300000, guid: e753b8d3a7307a64bba179f4f14e5e89, type: 3}
+  - {fileID: 21300000, guid: c7d9281da55db6b48882df4ae9570bf6, type: 3}
+  - {fileID: 21300000, guid: a6db00a655757d94c8ffe43e6de8790a, type: 3}
+  - {fileID: 21300000, guid: 6e4f0ea4a0a7be743bc1490751039908, type: 3}
+  - {fileID: 21300000, guid: 9f352fa97b1a91f4c9454c5f7378a739, type: 3}
+  width: 8
+  height: 8
+  startMoves: 3000
+  difficultyLevel: 2
+  restartOnFail: 1
+  stepDelay: 0.25
+  finishDelay: 0

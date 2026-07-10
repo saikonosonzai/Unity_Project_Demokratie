@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 323d903fa166f7142ab1596a80dabe8c, type: 3}
+  m_Name: Bishop Fuse
+  m_EditorClassIdentifier: 
+  chessSprite: {fileID: 21300000, guid: 3dbb8d772edad8441a4584a48a931441, type: 3}
+  chessPrefab: {fileID: 8022370039602121894, guid: a85a55fab3bce1b46a577963acc3cb0c,
+    type: 3}

@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6545678160926037034
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6546226591215971365}
+  - component: {fileID: 6545678160926037035}
+  m_Layer: 0
+  m_Name: Gas Mask - Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6546226591215971365
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6545678160926037034}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6545678160926037035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6545678160926037034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6ab4042f9b2c4f4bb17ddb7eb113fb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  persistAcrossScenes: 1
+  maxEquipTimer: 1
+  player: {fileID: 0}
+  walkNorm: 5
+  runNorm: 10
+  walkGas: 2
+  filterFallRate: 0.5
+  warningPercentage: 20
+  _filterTimer: 100
+  _maskFilters: 0
+  deepBreathAudio: {fileID: 11400000, guid: 009d6e86c155a5941bcc99e97e588ba7, type: 2}
+  breathInAudio: {fileID: 11400000, guid: 38d2e778812c95541bd7d74e429b8467, type: 2}
+  breathOutAudio: {fileID: 11400000, guid: 438b1b889210c2b4faa0a6904fbc1f59, type: 2}
+  breathingFullAudio: {fileID: 11400000, guid: 29884eae3d2851b4a836866c64af23b5, type: 2}
+  chokingAudio: {fileID: 11400000, guid: 9c4d0f6ede7650e489e7ab98b6c3938b, type: 2}
+  pickupAudio: {fileID: 11400000, guid: 3aebf2d1982bdde49a83f80ba14a9ff7, type: 2}
+  replaceFilterAudio: {fileID: 11400000, guid: c1a541dd71789cc43b8afcff506cbe1b, type: 2}
+  warningAudio: {fileID: 11400000, guid: 0759e6d861608e145a9fb74fbb88aebd, type: 2}
