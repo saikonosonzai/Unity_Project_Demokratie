@@ -48,6 +48,11 @@ public class PuzzleInteractable : MonoBehaviour
     [Header("Objects To Enable After Solved")]
     [SerializeField] private GameObject[] objectsToEnableWithKey9;
 
+    [Header("Dialogue After Solved")]
+    [SerializeField] private bool startDialogueAfterSolved = false;
+    [SerializeField] private BremenDialogueData dialogueAfterSolved;
+    [SerializeField] private float dialogueDelayAfterSolved = 0.3f;
+
     [Header("After Solved")]
     [SerializeField] private bool disableInteractionAfterSolved = true;
 
@@ -222,6 +227,11 @@ public class PuzzleInteractable : MonoBehaviour
 
         OpenBoxAndShowReward();
 
+        if (startDialogueAfterSolved && dialogueAfterSolved != null)
+        {
+            Invoke(nameof(StartSolvedDialogue), dialogueDelayAfterSolved);
+        }
+
         Debug.Log("Puzzle gelöst, UI geschlossen, Klappe geöffnet und Objekte aktiviert.");
 
         if (disableInteractionAfterSolved)
@@ -234,6 +244,23 @@ public class PuzzleInteractable : MonoBehaviour
                 Debug.Log("Interaction Collider deaktiviert.");
             }
         }
+    }
+
+    private void StartSolvedDialogue()
+    {
+        if (BremenDialogueManager.Instance == null)
+        {
+            Debug.LogWarning("Kein BremenDialogueManager in der Szene gefunden.");
+            return;
+        }
+
+        if (dialogueAfterSolved == null)
+        {
+            Debug.LogWarning("Dialogue After Solved ist nicht eingetragen.");
+            return;
+        }
+
+        BremenDialogueManager.Instance.StartDialogue(dialogueAfterSolved);
     }
 
     private void HidePuzzleUI()

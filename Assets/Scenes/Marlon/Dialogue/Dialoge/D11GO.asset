@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f911b9a4226273c4e913b0a6c9f4c877, type: 3}
+  m_Name: D11GO
+  m_EditorClassIdentifier: Assembly-CSharp::BremenDialogueData
+  lines:
+  - speakerName: Roland
+    portrait: {fileID: 21300000, guid: e9a6d1c69cd6d9d489bbeb4c0c86a767, type: 3}
+    overridePortraitLayout: 0
+    customPortraitSize: {x: 0, y: 0}
+    customPortraitPosition: {x: 0, y: 0}
+    text: "Sehr gut, du hast alle 4 Fragmente des Bremer Schl\xFCssels gefunden und
+      alle R\xE4tsel gel\xF6st. Ich hoffe du konntest viel \xFCber Demokratie und
+      das Bremer Rathaus lernen."
+  - speakerName: Roland
+    portrait: {fileID: 21300000, guid: e9a6d1c69cd6d9d489bbeb4c0c86a767, type: 3}
+    overridePortraitLayout: 0
+    customPortraitSize: {x: 600, y: 600}
+    customPortraitPosition: {x: -170, y: 0}
+    text: "Jetzt \xFCbergebe mir die 4 Schl\xFCsselfragmente!"
+  - speakerName: Roland
+    portrait: {fileID: 21300000, guid: d107b368d8e34ef4da3413d52a862bf3, type: 3}
+    overridePortraitLayout: 1
+    customPortraitSize: {x: 600, y: 600}
+    customPortraitPosition: {x: -170, y: 0}
+    text: "Der Bremer Schl\xFCssel..."
+  - speakerName: Roland
+    portrait: {fileID: 21300000, guid: 6319b97ec099d844c9c71c021a223bac, type: 3}
+    overridePortraitLayout: 1
+    customPortraitSize: {x: 600, y: 600}
+    customPortraitPosition: {x: -170, y: 0}
+    text: "Gehe mit dem Bremer Schl\xFCssel an den Anfang zur\xFCck und erlange Freiheit! "
