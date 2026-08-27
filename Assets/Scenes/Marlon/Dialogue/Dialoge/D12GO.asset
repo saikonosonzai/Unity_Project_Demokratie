@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f911b9a4226273c4e913b0a6c9f4c877, type: 3}
-  m_Name: D11GO
+  m_Name: D12GO
   m_EditorClassIdentifier: Assembly-CSharp::BremenDialogueData
   lines:
   - speakerName: Roland

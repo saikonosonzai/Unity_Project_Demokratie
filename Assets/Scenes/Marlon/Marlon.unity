@@ -404,7 +404,6 @@ GameObject:
   - component: {fileID: 328688280}
   - component: {fileID: 328688278}
   - component: {fileID: 328688277}
-  - component: {fileID: 328688282}
   m_Layer: 0
   m_Name: MemoryTable
   m_TagString: Untagged
@@ -543,28 +542,6 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 328688275}
-  m_Mesh: {fileID: 8452727377967302269, guid: 8e4443de9b2303f46aa114ef6292a540, type: 3}
---- !u!64 &328688282
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 328688275}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
   m_Mesh: {fileID: 8452727377967302269, guid: 8e4443de9b2303f46aa114ef6292a540, type: 3}
 --- !u!1001 &333513169
 PrefabInstance:
@@ -940,75 +917,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 435d58f659ed95c44ac2ee5bb2a368e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BremenWordSearchPuzzleUI
-  gridRoot: {fileID: 0}
-  infoText: {fileID: 0}
-  foundWordsText: {fileID: 0}
-  puzzleInteractable: {fileID: 0}
-  closeDelay: 0.5
-  gridSize: 16
-  cellSize: {x: 34, y: 34}
-  spacing: {x: 1, y: 1}
-  letterFontSize: 19
-  normalCellColor:
-    r: 0.86
-    g: 0.81
-    b: 0.69
-    a: 0.96
-  selectedCellColor:
-    r: 0.78
-    g: 0.62
-    b: 0.28
-    a: 1
-  foundCellColor:
-    r: 0.4
-    g: 0.7
-    b: 0.45
-    a: 1
-  cellBorderColor:
-    r: 0.34
-    g: 0.27
-    b: 0.18
-    a: 0.55
-  selectedBorderColor:
-    r: 0.95
-    g: 0.7
-    b: 0.2
-    a: 1
-  foundBorderColor:
-    r: 0.65
-    g: 0.95
-    b: 0.55
-    a: 1
-  textColor:
-    r: 0.12
-    g: 0.09
-    b: 0.05
-    a: 1
-  selectedTextColor:
-    r: 0.08
-    g: 0.05
-    b: 0.02
-    a: 1
-  foundTextColor:
-    r: 0.02
-    g: 0.25
-    b: 0.05
-    a: 1
-  wordNormalColor:
-    r: 0.78
-    g: 0.72
-    b: 0.6
-    a: 1
-  wordFoundColor:
-    r: 0.55
-    g: 0.95
-    b: 0.55
-    a: 1
-  foundSymbol: "\u2713 "
-  showInfoMessages: 1
-  OnPuzzleSolved:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &560629408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1387,32 +1295,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d0d16ed4a3df7342a0025dfc5b8e32e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzleInteractable
-  interactKey: 101
-  puzzleCanvas: {fileID: 0}
-  extraPuzzleObjectsToHideOnClose: []
-  objectsToEnableOnClose: []
-  scriptsToDisableWhilePuzzleOpen: []
-  mainCameraObject: {fileID: 0}
-  examineCameraObject: {fileID: 0}
-  forceMainCameraOnClose: 1
-  useFixedPuzzleCameraView: 0
-  puzzleCameraPoint: {fileID: 0}
-  lookAtTarget: {fileID: 0}
-  restoreCameraTransformOnClose: 1
-  blurObjectsToDisableOnClose: []
-  blurComponentsToDisableOnClose: []
-  boxAnimator: {fileID: 0}
-  openAnimationTrigger: Open
-  rewardObject: {fileID: 0}
-  showRewardAfterSolved: 1
-  lidPivot: {fileID: 0}
-  lidOpenAngle: -90
-  lidOpenSpeed: 30
-  objectsToEnableWithKey9: []
-  startDialogueAfterSolved: 0
-  dialogueAfterSolved: {fileID: 0}
-  dialogueDelayAfterSolved: 0.3
-  disableInteractionAfterSolved: 1
 --- !u!65 &874332813
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2121,32 +2003,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d0d16ed4a3df7342a0025dfc5b8e32e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzleInteractable
-  interactKey: 101
-  puzzleCanvas: {fileID: 0}
-  extraPuzzleObjectsToHideOnClose: []
-  objectsToEnableOnClose: []
-  scriptsToDisableWhilePuzzleOpen: []
-  mainCameraObject: {fileID: 0}
-  examineCameraObject: {fileID: 0}
-  forceMainCameraOnClose: 1
-  useFixedPuzzleCameraView: 0
-  puzzleCameraPoint: {fileID: 0}
-  lookAtTarget: {fileID: 0}
-  restoreCameraTransformOnClose: 1
-  blurObjectsToDisableOnClose: []
-  blurComponentsToDisableOnClose: []
-  boxAnimator: {fileID: 0}
-  openAnimationTrigger: Open
-  rewardObject: {fileID: 0}
-  showRewardAfterSolved: 1
-  lidPivot: {fileID: 0}
-  lidOpenAngle: -90
-  lidOpenSpeed: 30
-  objectsToEnableWithKey9: []
-  startDialogueAfterSolved: 0
-  dialogueAfterSolved: {fileID: 0}
-  dialogueDelayAfterSolved: 0.3
-  disableInteractionAfterSolved: 1
 --- !u!4 &1432245768
 Transform:
   m_ObjectHideFlags: 0
