@@ -96,6 +96,10 @@ public class ClockController : MonoBehaviour
         puzzleSolved = true;
         StartCoroutine(OpenDoor());
         ExitPuzzle();
+        var akItem = GetComponent<AKItem>();
+        akItem.ShowNameHighlight = false;
+        akItem.ToggleHighlight(false); // <- das hier sofort ausblenden
+        gameObject.GetComponent<BoxCollider>().enabled = false;
     }
 
     void ExitPuzzle()
