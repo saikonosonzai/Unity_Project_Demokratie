@@ -78,6 +78,7 @@ public class PuzzleInteractable : MonoBehaviour
         }
         else
         {
+            
             Debug.LogError("PuzzleCanvas ist nicht eingetragen!");
         }
 
