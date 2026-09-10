@@ -32,5 +32,5 @@ MonoBehaviour:
     overridePortraitLayout: 1
     customPortraitSize: {x: 600, y: 600}
     customPortraitPosition: {x: -170, y: 0}
-    text: "Gehe weiter und finde ein Gem\xE4lde in der Obren Rathaushalle. Es wird
-      dir den weiteren Weg zeigen."
+    text: "Gehe weiter und finde ein Gem\xE4lde in der Oberen Rathaushalle. Es wird
+      dir den weiteren Weg \xF6ffnen."

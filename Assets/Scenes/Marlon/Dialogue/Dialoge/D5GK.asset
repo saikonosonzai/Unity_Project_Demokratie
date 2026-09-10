@@ -26,4 +26,4 @@ MonoBehaviour:
     overridePortraitLayout: 0
     customPortraitSize: {x: 0, y: 0}
     customPortraitPosition: {x: 0, y: 0}
-    text: "Aber vorsicht, in diesem Raum versteckt sich das zweite Schl\xFCsselfragment!"
+    text: "Aber Achtung, in diesem Raum versteckt sich das zweite Schl\xFCsselfragment!"
