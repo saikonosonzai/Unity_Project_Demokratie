@@ -25,7 +25,7 @@ namespace AdventurePuzzleKit
     public class AKItem : MonoBehaviour
     {
         public enum SystemType { None, GeneratorSys, ValveSys, FlashlightSys, GasMaskSys, KeypadSys, PhoneSys, SafeSys, FuseBoxSys, PadlockSys, LeverSys, ThemedKeySys,
-        ChessSys, DoorSys, NoteSys, KeycardSys, ClockSys, HatchSys, StatueSys }
+        ChessSys, DoorSys, NoteSys, KeycardSys, ClockSys, HatchSys, StatueSys, CandleSys, KeySys, CollectableSys }
         [SerializeField] private SystemType _systemType = SystemType.None;
 
         [Tooltip("This is to add a highlight name when looking at objects, ONLY if you're not using Examine Sys as Primary Type")]
@@ -59,6 +59,9 @@ namespace AdventurePuzzleKit
         private ClockItem _clockItem;
         private HatchItem _hatchItem;
         private Statue_Item _statue_Item;
+        private CandleItem _candleItem;
+        private KeyItem _keyItem;
+        private  CollectableItem _collectableItem;
 
         private List<Renderer> childObjects = null; // Automatically populated in Awake()
         private Material parentMaterial;
@@ -97,6 +100,9 @@ namespace AdventurePuzzleKit
             CheckAndAssignComponent(ref _clockItem, SystemType.ClockSys, "ClockItem");
             CheckAndAssignComponent(ref _hatchItem, SystemType.HatchSys, "HatchItem");
             CheckAndAssignComponent(ref _statue_Item, SystemType.StatueSys, "Statue_Item");
+            CheckAndAssignComponent(ref _candleItem, SystemType.CandleSys, "CandleItem");
+            CheckAndAssignComponent(ref _keyItem, SystemType.KeySys, "KeyItem");
+            CheckAndAssignComponent(ref _collectableItem, SystemType.CollectableSys, "CollectableItem");
 
 
             // Check for parent renderer and assign material
@@ -278,6 +284,9 @@ namespace AdventurePuzzleKit
                 SystemType.ClockSys => _clockItem,
                 SystemType.HatchSys => _hatchItem,
                 SystemType.StatueSys => _statue_Item,
+                SystemType.CandleSys => _candleItem,
+                SystemType.KeySys => _keyItem,
+                SystemType.CollectableSys => _collectableItem,
                 _ => null
             };
         }

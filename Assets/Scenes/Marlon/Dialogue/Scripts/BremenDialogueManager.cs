@@ -112,6 +112,8 @@ public class BremenDialogueManager : MonoBehaviour
     private int currentLineIndex;
     private bool dialogueActive;
 
+    public bool IsDialogueActive => dialogueActive;
+
     private Coroutine typewriterCoroutine;
     private bool isTyping;
     private string fullCurrentText = "";
