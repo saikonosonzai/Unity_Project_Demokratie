@@ -31,7 +31,7 @@ MonoBehaviour:
     customPortraitSize: {x: 250, y: 330}
     customPortraitPosition: {x: -190, y: 0}
     text: "Ich bin kein gew\xF6hnlicher Ritter. Ich bin ein Zeichen f\xFCr Freiheit,
-      Recht und Selbstbestimmung. Du fragst dich bestimmt, wie du hierher gekommen
+      Recht und Selbstbestimmung. Du fragst dich bestimmt, wie du hierhergekommen
       bist."
   - speakerName: Roland
     portrait: {fileID: 21300000, guid: e9a6d1c69cd6d9d489bbeb4c0c86a767, type: 3}
@@ -67,5 +67,5 @@ MonoBehaviour:
     overridePortraitLayout: 1
     customPortraitSize: {x: 600, y: 600}
     customPortraitPosition: {x: -170, y: 0}
-    text: "Beim ersten R\xE4tsel gebe ich dir einen HInweis: Es hat mit der Zeit
+    text: "Beim ersten R\xE4tsel gebe ich dir einen Hinweis: Es hat mit der Zeit
       zu tun..."

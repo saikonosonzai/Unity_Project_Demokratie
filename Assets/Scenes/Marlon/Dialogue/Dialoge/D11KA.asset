@@ -18,5 +18,5 @@ MonoBehaviour:
     overridePortraitLayout: 0
     customPortraitSize: {x: 0, y: 0}
     customPortraitPosition: {x: 0, y: 0}
-    text: "Das ist der vorletzte Raum. L\xF6se die R\xE4tsel, um die T\xFCr zu dem 
+    text: "Das ist der vorletzte Raum. L\xF6se die R\xE4tsel, um die T\xFCr zu dem
       letzten Raum und der finalen Pr\xFCfung zu \xF6ffnen!"
