@@ -1,0 +1,29 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    
+    <!-- Deine Original-Referenz auf das Stylesheet bleibt erhalten -->
+    <Style src="project://database/Assets/Scenes/Fabian/UI/PollUI.uss?fileID=7433441132597879392&amp;guid=65034eca358cef549a11010c725edf5e&amp;type=3#PollUI"/>
+    
+    <!-- Haupt-Container: Nimmt den ganzen Bildschirm ein und richtet alles nach unten aus (flex-end) -->
+    <ui:VisualElement name="MainContainer" style="flex-grow: 1; justify-content: flex-end; align-items: center; padding-bottom: 40px;">
+        
+        <!-- Das dunkle Panel unten mit dem Gold-Rand aus grafik.jpg -->
+        <ui:VisualElement name="BottomPanel" style="width: 80%; max-width: 1000px; background-color: rgba(15, 12, 8, 0.95); border-left-color: rgb(140, 115, 53); border-right-color: rgb(140, 115, 53); border-top-color: rgb(140, 115, 53); border-bottom-color: rgb(140, 115, 53); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; padding: 30px;">
+            
+            <!-- Der Text der Aussage -->
+            <ui:Label text="Alle Menschen sind vor dem Gesetz gleich." name="StatementText" style="color: rgb(212, 175, 55); font-size: 26px; -unity-text-align: middle-center; white-space: normal; padding-bottom: 25px; -unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Examples%20&amp;%20Extras/Fonts/Unity.ttf?fileID=12800000&amp;guid=f4eec857a4fdf2f43be0e9f3d1a984e7&amp;type=3#Unity&quot;);" />
+            
+            <!-- Button Container: Ordnet die Buttons nebeneinander an (flex-direction: row) -->
+            <ui:VisualElement name="ButtonContainer" style="flex-direction: row; justify-content: space-between; width: 100%;">
+                
+                <!-- Wahr Button (Grün) -->
+                <ui:Button text="WAHRE AUSSAGE" name="BtnTrue" class="button" style="width: 48%; height: 60px; font-size: 20px; -unity-font-style: bold; color: rgb(255, 255, 255); background-color: rgb(43, 93, 52); border-left-color: rgb(140, 115, 53); border-right-color: rgb(140, 115, 53); border-top-color: rgb(140, 115, 53); border-bottom-color: rgb(140, 115, 53); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px;" />
+                
+                <!-- Falsch Button (Rot) -->
+                <ui:Button text="FALSCHE AUSSAGE" name="BtnFalse" class="button" style="width: 48%; height: 60px; font-size: 20px; -unity-font-style: bold; color: rgb(255, 255, 255); background-color: rgb(93, 43, 43); border-left-color: rgb(140, 115, 53); border-right-color: rgb(140, 115, 53); border-top-color: rgb(140, 115, 53); border-bottom-color: rgb(140, 115, 53); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px;" />
+                
+            </ui:VisualElement>
+            
+        </ui:VisualElement>
+        
+    </ui:VisualElement>
+</ui:UXML>
