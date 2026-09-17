@@ -6,11 +6,10 @@ public class keyController : MonoBehaviour
 {
     public BremenDialogueData[] BremenDialogueData;
 
-    [Header("Key")]
-    [SerializeField] private int keyNumber;
-
     public void OnTrigger()
     {
+       
+
         StartCoroutine(PlayDialogues());
     }
 
@@ -21,15 +20,14 @@ public class keyController : MonoBehaviour
             if (bd == null)
                 continue;
 
+            // Dialog starten
             BremenDialogueManager.Instance.StartDialogue(bd);
 
+            // Warten, bis der Dialog beendet wurde
             yield return new WaitUntil(() =>
                 !BremenDialogueManager.Instance.IsDialogueActive
             );
         }
-
-        GameStateManager.Instance.CollectKey(keyNumber);
-
         gameObject.SetActive(false);
     }
 }
