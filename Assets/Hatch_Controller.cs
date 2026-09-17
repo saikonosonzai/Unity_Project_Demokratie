@@ -16,6 +16,7 @@ public class Hatch_Controller : MonoBehaviour
     public Transform disc3;
     public Transform disc4;
     public int[] correctDisc1Pos = new int[4];
+    public GameObject button;
 
     private int[] discPositions = {0,0,0,0};
     private int selectedDisc = 0;
@@ -152,6 +153,6 @@ public class Hatch_Controller : MonoBehaviour
             }
         }
         print("True");
-        StartCoroutine(OpenHatch());
+        StartCoroutine(OpenDrawer());
     }
 }

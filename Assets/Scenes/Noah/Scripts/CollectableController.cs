@@ -18,13 +18,6 @@ public class CollectableController : MonoBehaviour
     }
     public void Collect()
     {
-        if (itemType == ItemType.Cam)
-        {
-            if (!ItemManager.Instance.HasItem(ItemType.Lens))
-            {
-                return;
-            }
-        }
         ItemManager.Instance.CollectItem(itemType);
 
         gameObject.SetActive(false);
