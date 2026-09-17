@@ -1,0 +1,84 @@
+{
+  "statements": [
+    {
+      "text": "Alle Menschen sind vor dem Gesetz gleich.",
+      "isTrue": true
+    },
+    {
+      "text": "Nur Bürgerinnen und Bürger Bremens sind vor dem Gesetz gleich.",
+      "isTrue": false
+    },
+    {
+      "text": "Niemand darf wegen Herkunft, Glauben, Geschlecht oder politischer Meinung benachteiligt werden.",
+      "isTrue": true
+    },
+    {
+      "text": "Menschen mit Behinderungen haben keinen besonderen Schutz durch den Staat.",
+      "isTrue": false
+    },
+    {
+      "text": "Alle Menschen sind frei, solange sie nicht die Rechte anderer verletzen.",
+      "isTrue": true
+    },
+    {
+      "text": "Freiheit darf jederzeit ohne Gesetz eingeschränkt werden.",
+      "isTrue": false
+    },
+    {
+      "text": "Glaube, Gewissen und Überzeugung sind frei.",
+      "isTrue": true
+    },
+    {
+      "text": "Religion darf nur mit staatlicher Erlaubnis ausgeübt werden.",
+      "isTrue": false
+    },
+    {
+      "text": "Die Würde der menschlichen Persönlichkeit wird vom Staat geachtet und geschützt.",
+      "isTrue": true
+    },
+    {
+      "text": "Bei einem Verhör darf körperlicher Zwang eingesetzt werden, wenn es der Wahrheitsfindung dient.",
+      "isTrue": false
+    },
+    {
+      "text": "Der Staat darf jedem Menschen einen Beruf zuteilen.",
+      "isTrue": false
+    },
+    {
+      "text": "Jeder hat die Pflicht, am öffentlichen Leben teilzunehmen.",
+      "isTrue": true
+    },
+    {
+      "text": "Bei Naturkatastrophen muss niemand anderen helfen.",
+      "isTrue": false
+    },
+    {
+      "text": "Kunst, Wissenschaft und Lehre sind frei.",
+      "isTrue": true
+    },
+    {
+      "text": "Tiere werden als Lebewesen und Mitgeschöpfe geachtet.",
+      "isTrue": true
+    },
+    {
+      "text": "Persönliche Daten dürfen ohne Grund gesammelt und weitergegeben werden.",
+      "isTrue": false
+    },
+    {
+      "text": "Der Mensch steht höher als Technik und Maschine.",
+      "isTrue": true
+    },
+    {
+      "text": "Die Wohnung darf jederzeit ohne gesetzlichen Grund durchsucht werden.",
+      "isTrue": false
+    },
+    {
+      "text": "Jeder darf seine Meinung frei und öffentlich äußern.",
+      "isTrue": true
+    },
+    {
+      "text": "Zensur ist erlaubt, wenn die Regierung eine Meinung für gefährlich hält.",
+      "isTrue": false
+    }
+  ]
+}
