@@ -5,4 +5,5 @@ public enum ItemType
     Coin,
     BremenKey,
     Bilder,
+    Cam,
 }
