@@ -25,7 +25,7 @@ namespace AdventurePuzzleKit
     public class AKItem : MonoBehaviour
     {
         public enum SystemType { None, GeneratorSys, ValveSys, FlashlightSys, GasMaskSys, KeypadSys, PhoneSys, SafeSys, FuseBoxSys, PadlockSys, LeverSys, ThemedKeySys,
-        ChessSys, DoorSys, NoteSys, KeycardSys, ClockSys, SeasonClockSys, HatchSys, StatueSys, CandleSys, KeySys, CollectableSys }
+        ChessSys, DoorSys, NoteSys, KeycardSys, ClockSys, HatchSys, StatueSys, CandleSys, KeySys, CollectableSys }
         [SerializeField] private SystemType _systemType = SystemType.None;
 
         [Tooltip("This is to add a highlight name when looking at objects, ONLY if you're not using Examine Sys as Primary Type")]
@@ -57,7 +57,6 @@ namespace AdventurePuzzleKit
         private NoteTypeSelector _noteItem;
         private KeycardItem _keycardItem;
         private ClockItem _clockItem;
-        private SeasonClockItem _seasonClockItem;
         private HatchItem _hatchItem;
         private Statue_Item _statue_Item;
         private CandleItem _candleItem;
@@ -99,7 +98,6 @@ namespace AdventurePuzzleKit
             CheckAndAssignComponent(ref _noteItem, SystemType.NoteSys, "NoteItem");
             CheckAndAssignComponent(ref _keycardItem, SystemType.KeycardSys, "KeycardItem");
             CheckAndAssignComponent(ref _clockItem, SystemType.ClockSys, "ClockItem");
-            CheckAndAssignComponent(ref _seasonClockItem, SystemType.SeasonClockSys, "SeasonClockItem");
             CheckAndAssignComponent(ref _hatchItem, SystemType.HatchSys, "HatchItem");
             CheckAndAssignComponent(ref _statue_Item, SystemType.StatueSys, "Statue_Item");
             CheckAndAssignComponent(ref _candleItem, SystemType.CandleSys, "CandleItem");
@@ -284,7 +282,6 @@ namespace AdventurePuzzleKit
                 SystemType.NoteSys => _noteItem,
                 SystemType.KeycardSys => _keycardItem,
                 SystemType.ClockSys => _clockItem,
-                SystemType.SeasonClockSys => _seasonClockItem,
                 SystemType.HatchSys => _hatchItem,
                 SystemType.StatueSys => _statue_Item,
                 SystemType.CandleSys => _candleItem,
