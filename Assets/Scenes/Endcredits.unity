@@ -344,7 +344,7 @@ MonoBehaviour:
   endScreenMusic: {fileID: 8300000, guid: 21291b6ab9c0be349bedfdf5ed97f1b7, type: 3}
   playMusic: 1
   loopMusic: 1
-  musicVolume: 0.45
+  musicVolume: 0.4
   gameTitle: Rathaus Escape
   titleFont: {fileID: 11400000, guid: b1e12a5acf8302a44ba26dd2d63d37eb, type: 2}
   titleFontSize: 120
@@ -367,21 +367,36 @@ MonoBehaviour:
   namesFontSize: 30
   creditTeams:
   - teamTitle: Team Management
-    teamNames: 
+    teamNames: "Jella Dose\nAdnan Al-Msuker\nNoah H\xE4rtel"
   - teamTitle: Team Story
-    teamNames: 
+    teamNames: "Marlon Schadeberg\nSahel Moghimi\nNathalie Marth\nValentin Bocquier\nEfe
+      \xC7oban\nHanna Hasselquist Evensen\nVeli Kasim Kaya\nSacha Stankoski"
   - teamTitle: Team 3D
-    teamNames: 
+    teamNames: "Noah H\xE4rtel\nFabian Kattillus\nLeonie Will\nNathalie Marth\nEfe
+      \xC7oban\nSimone Constanzo\nVictor Gardin\nVeli Kasim Kaya"
   - teamTitle: Team Design
-    teamNames: 
+    teamNames: "Julia Brianne Calkins\nJella Dose\nSahel Moghimi\nEfe \xC7oban\nVeli
+      Kasim Kaya"
   - teamTitle: Team Backend
-    teamNames: 
-  - teamTitle: Sound
-    teamNames: 
-  - teamTitle: Hilfstools
-    teamNames: 
-  - teamTitle: Mitwirkende
-    teamNames: 
+    teamNames: "Noah H\xE4rtel\nFabian Kattilus\nMarlon Schadeberg"
+  - teamTitle: Team Intro
+    teamNames: "Marlon Schadeberg\nEfe \xC7oban\nVeli Kasim Kaya\nRaphael K\xF6rner\nAmir
+      Valibeygi\nNico Gmerek"
+  - teamTitle: Lehrende
+    teamNames: 'Andreas Teufel
+
+      Ralf C. Schreier'
+  - teamTitle: Projektpartner
+    teamNames: "Verein zur F\xF6rderung des Welterbes Rathaus und Roland in Bremen
+      e.V.\nSenatskanzlei Bremen\nBremische B\xFCrgerschaft\nHochschule Bremen\nHochschule
+      Bremerhaven"
+  - teamTitle: Besonderer Dank
+    teamNames: "Anja Kamp, HSB\nDorothee Krumpipe, Bremische B\xFCrgerschaft\nPeter
+      Lohmann, Senatskanzlei Bremen\nAnnika Meiners, Kunsthalle Bremen\nHauke Nehring,
+      Senatskanzlei Bremen\nBirgitt Rambalski-Monsees, Welterbeverein\nMichael Schnelle,
+      Senator f\xFCr Bildung, Ref. 10\nMatthias Stauch, Welterbeverein\nDaniel Tilgner,
+      Senator f\xFCr Bildung, Ref. 10\nAstrid Vortkamp, Senatskanzlei Bremen\nHans-Joachim
+      von Wachter, Bremische B\xFCrgerschaft\nBeate Zimpelmann, HSB"
   scrollSpeed: 55
   startYPosition: -600
   autoReturnToMainMenu: 1
@@ -391,8 +406,12 @@ MonoBehaviour:
   teamTitleSize: {x: 900, y: 70}
   namesTextSize: {x: 900, y: 180}
   spaceAfterMainTitle: 550
-  spaceAfterTeamTitle: 30
-  spaceAfterNames: 30
+  spaceAfterTeamTitle: 0
+  spaceAfterNames: 100
+  autoSizeNamesByLineCount: 1
+  minNamesTextHeight: 70
+  namesLineHeight: 38
+  countEmptyLines: 0
 --- !u!4 &1981308063
 Transform:
   m_ObjectHideFlags: 0

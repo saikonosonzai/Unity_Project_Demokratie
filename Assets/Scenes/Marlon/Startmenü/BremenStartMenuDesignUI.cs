@@ -28,7 +28,7 @@ public class BremenStartMenuDesignUI : MonoBehaviour
     [SerializeField] private Sprite submenuBlurredBackgroundSprite;
     [SerializeField] private Color backgroundColor = new Color(0.06f, 0.025f, 0.015f, 1f);
     [SerializeField] private Color darkOverlayColor = new Color(0f, 0f, 0f, 0.35f);
-    [SerializeField] private Color submenuOverlayColor = new Color(0f, 0f, 0f, 0.55f);
+    [SerializeField] private Color submenuOverlayColor = new Color(0f, 0f, 0f, 0.78f);
 
     [Header("Main Title")]
     [SerializeField] private string gameTitle = "Rathaus Escape";
@@ -72,28 +72,53 @@ public class BremenStartMenuDesignUI : MonoBehaviour
         "Shift  -  Rennen\n" +
         "Esc  -  Menü schließen";
 
-    [TextArea(6, 16)]
-    [SerializeField] private string creditsPageText =
-        "Story & Konzept\n" +
-        "Marlon, Franck, Fyn\n\n" +
-        "Rätsel & Spielideen\n" +
-        "Story-Team\n\n" +
-        "Programmierung\n" +
-        "Fyn\n\n" +
-        "Dokumentation\n" +
-        "Marlon\n\n" +
-        "Präsentation & Video\n" +
-        "Franck";
+    [Header("Credits Columns")]
+    [SerializeField] private string studentsHeadline = "Studenten";
+
+    [TextArea(6, 24)]
+    [SerializeField] private string studentsText =
+        "Jella Dose\n" +
+        "Sahel Moghimi\n" +
+        "Adnan Al-Msuker\n" +
+        "Fabian Kattillus\n" +
+        "Noah Härtel\n" +
+        "Leonie Will\n" +
+        "Marlon Schadeberg\n" +
+        "Nathalie Marth\n" +
+        "Valentin Bocquier\n" +
+        "Julia Brianne Calkins\n" +
+        "Efe Çoban\n" +
+        "Simone Costanzo\n" +
+        "Hanna Hasselquist Evensen\n" +
+        "Victor Gardin\n" +
+        "Veli Kasim Kaya\n" +
+        "Sacha Stankoski\n" +
+        "Raphael Körner\n" +
+        "Nico Gmerek\n" +
+        "Amir Valibeygi";
+
+    [SerializeField] private string teachersHeadline = "Lehrende";
+
+    [TextArea(6, 24)]
+    [SerializeField] private string teachersText =
+        "Andreas Teufel\n" +
+        "Ralf G. Schreier";
+
+    [SerializeField] private string partnersHeadline = "Projektpartner";
+
+    [TextArea(6, 24)]
+    [SerializeField] private string partnersText =
+        "Verein zur Förderung des Welterbes\n" +
+        "Rathaus und Roland in Bremen e.V.\n" +
+        "Senatskanzlei Bremen\n" +
+        "Bremische Bürgerschaft\n" +
+        "Hochschule Bremen\n" +
+        "Hochschule Bremerhaven\n" +
+        "Kunsthalle Bremen\n" +
+        "Welterbeverein";
 
     [Header("Settings Texts")]
     [SerializeField] private string soundLabelText = "Sound";
-    [SerializeField] private string graphicsLabelText = "Grafik";
-
-    [Header("Graphics Options")]
-    [SerializeField] private string graphicsLowText = "Niedrig";
-    [SerializeField] private string graphicsMediumText = "Mittel";
-    [SerializeField] private string graphicsHighText = "Hoch";
-    [SerializeField] private string graphicsUltraText = "Ultra";
 
     [Header("Levelauswahl")]
     [SerializeField] private BremenMenuLevelEntry[] levels;
@@ -170,6 +195,16 @@ public class BremenStartMenuDesignUI : MonoBehaviour
     [SerializeField] private float submenuTextLineWidth = 900f;
     [SerializeField] private float submenuTextLineHeight = 42f;
 
+    [Header("Credits 3 Column Layout")]
+    [SerializeField] private Vector2 creditsColumnStartPosition = new Vector2(0f, 135f);
+    [SerializeField] private float creditsColumnSpacing = 400f;
+    [SerializeField] private float creditsHeadlineFontSize = 34f;
+    [SerializeField] private float creditsNamesFontSize = 22f;
+    [SerializeField] private float creditsNamesLineSpacing = 30f;
+    [SerializeField] private float creditsSpaceAfterHeadline = 48f;
+    [SerializeField] private float creditsColumnWidth = 430f;
+    [SerializeField] private float creditsLineHeight = 34f;
+
     private GameObject mainMenuRoot;
     private GameObject settingsRoot;
     private GameObject controlsRoot;
@@ -180,7 +215,6 @@ public class BremenStartMenuDesignUI : MonoBehaviour
     private Image overlayImage;
 
     private Slider volumeSlider;
-    private TMP_Dropdown graphicsDropdown;
 
     private Image levelPreviewImage;
     private TMP_Text levelPreviewTitle;
@@ -409,7 +443,7 @@ public class BremenStartMenuDesignUI : MonoBehaviour
             "SoundLabel",
             soundLabelText,
             settingsRoot.transform,
-            new Vector2(-230f, 80f),
+            new Vector2(-230f, 40f),
             new Vector2(240f, 55f),
             30f,
             normalTextColor,
@@ -418,35 +452,14 @@ public class BremenStartMenuDesignUI : MonoBehaviour
 
         ApplyNormalGradient(soundLabel);
 
-        volumeSlider = CreateSlider(settingsRoot.transform, new Vector2(130f, 80f), new Vector2(360f, 40f));
-        volumeSlider.value = backgroundMusicVolume;
-        volumeSlider.onValueChanged.AddListener(OnVolumeChanged);
-
-        TMP_Text graphicsLabel = CreateText(
-            "GraphicsLabel",
-            graphicsLabelText,
+        volumeSlider = CreateSlider(
             settingsRoot.transform,
-            new Vector2(-230f, -20f),
-            new Vector2(240f, 55f),
-            30f,
-            normalTextColor,
-            FontStyles.Bold
+            new Vector2(130f, 40f),
+            new Vector2(360f, 40f)
         );
 
-        ApplyNormalGradient(graphicsLabel);
-
-        graphicsDropdown = CreateDropdown(settingsRoot.transform, new Vector2(130f, -20f), new Vector2(360f, 60f));
-        graphicsDropdown.ClearOptions();
-        graphicsDropdown.AddOptions(new System.Collections.Generic.List<string>
-        {
-            graphicsLowText,
-            graphicsMediumText,
-            graphicsHighText,
-            graphicsUltraText
-        });
-        graphicsDropdown.value = 2;
-        graphicsDropdown.RefreshShownValue();
-        graphicsDropdown.onValueChanged.AddListener(OnGraphicsChanged);
+        volumeSlider.value = backgroundMusicVolume;
+        volumeSlider.onValueChanged.AddListener(OnVolumeChanged);
     }
 
     private void BuildControlsMenu()
@@ -565,15 +578,95 @@ public class BremenStartMenuDesignUI : MonoBehaviour
         CreateBackIconButton(creditsRoot.transform);
         CreateHeadline(creditsPageTitle, creditsRoot.transform);
 
-        CreateTextLinesFromTop(
-            "CreditsLine",
-            creditsPageText,
+        float leftX = -creditsColumnSpacing;
+        float middleX = 0f;
+        float rightX = creditsColumnSpacing;
+
+        CreateCreditsColumn(
+            studentsHeadline,
+            studentsText,
             creditsRoot.transform,
-            creditsTextTopPosition,
-            creditsTextFontSize,
-            creditsLineSpacing,
-            FontStyles.Normal
+            new Vector2(leftX, creditsColumnStartPosition.y)
         );
+
+        CreateCreditsColumn(
+            teachersHeadline,
+            teachersText,
+            creditsRoot.transform,
+            new Vector2(middleX, creditsColumnStartPosition.y)
+        );
+
+        CreateCreditsColumn(
+            partnersHeadline,
+            partnersText,
+            creditsRoot.transform,
+            new Vector2(rightX, creditsColumnStartPosition.y)
+        );
+    }
+
+    private void CreateCreditsColumn(
+        string headline,
+        string bodyText,
+        Transform parent,
+        Vector2 topPosition)
+    {
+        TMP_Text headlineText = CreateText(
+            headline + "_CreditsHeadline",
+            headline,
+            parent,
+            topPosition,
+            new Vector2(creditsColumnWidth, 60f),
+            creditsHeadlineFontSize,
+            titleColor,
+            FontStyles.Bold
+        );
+
+        if (titleFont != null)
+            headlineText.font = titleFont;
+
+        headlineText.alignment = TextAlignmentOptions.Center;
+        headlineText.verticalAlignment = VerticalAlignmentOptions.Middle;
+
+        ApplyTitleGradient(headlineText);
+        AddTextShadow(headlineText.gameObject, new Color(0f, 0f, 0f, 0.75f), new Vector2(2f, -2f));
+
+        if (string.IsNullOrWhiteSpace(bodyText))
+            return;
+
+        string normalizedText = bodyText.Replace("\r\n", "\n").Replace("\r", "\n");
+        string[] lines = normalizedText.Split('\n');
+
+        float currentY = topPosition.y - creditsSpaceAfterHeadline;
+
+        for (int i = 0; i < lines.Length; i++)
+        {
+            string line = lines[i];
+
+            if (string.IsNullOrWhiteSpace(line))
+            {
+                currentY -= creditsNamesLineSpacing;
+                continue;
+            }
+
+            TMP_Text nameText = CreateText(
+                headline + "_CreditLine_" + i,
+                line,
+                parent,
+                new Vector2(topPosition.x, currentY),
+                new Vector2(creditsColumnWidth, creditsLineHeight),
+                creditsNamesFontSize,
+                normalTextColor,
+                FontStyles.Normal
+            );
+
+            nameText.alignment = TextAlignmentOptions.Center;
+            nameText.verticalAlignment = VerticalAlignmentOptions.Middle;
+            nameText.enableWordWrapping = true;
+
+            ApplyNormalGradient(nameText);
+
+            currentY -= creditsNamesLineSpacing;
+        }
     }
 
     private void CreateHeadline(string headlineText, Transform parent)
@@ -610,7 +703,6 @@ public class BremenStartMenuDesignUI : MonoBehaviour
             new Vector2(-headlineOutlineThickness, 0f),
             new Vector2(0f, headlineOutlineThickness),
             new Vector2(0f, -headlineOutlineThickness),
-
             new Vector2(headlineOutlineThickness, headlineOutlineThickness),
             new Vector2(-headlineOutlineThickness, headlineOutlineThickness),
             new Vector2(headlineOutlineThickness, -headlineOutlineThickness),
@@ -882,7 +974,6 @@ public class BremenStartMenuDesignUI : MonoBehaviour
             return;
 
         string[] lines = fullText.Split('\n');
-
         float currentY = topPosition.y;
 
         for (int i = 0; i < lines.Length; i++)
@@ -998,54 +1089,6 @@ public class BremenStartMenuDesignUI : MonoBehaviour
         slider.targetGraphic = handleImage;
 
         return slider;
-    }
-
-    private TMP_Dropdown CreateDropdown(Transform parent, Vector2 position, Vector2 size)
-    {
-        GameObject dropdownObject = CreateUIObject("GraphicsDropdown", parent);
-
-        RectTransform rect = dropdownObject.GetComponent<RectTransform>();
-        rect.anchorMin = new Vector2(0.5f, 0.5f);
-        rect.anchorMax = new Vector2(0.5f, 0.5f);
-        rect.pivot = new Vector2(0.5f, 0.5f);
-        rect.anchoredPosition = position;
-        rect.sizeDelta = size;
-
-        Image image = dropdownObject.AddComponent<Image>();
-        image.color = buttonColor;
-
-        TMP_Dropdown dropdown = dropdownObject.AddComponent<TMP_Dropdown>();
-
-        TMP_Text label = CreateText(
-            "DropdownLabel",
-            graphicsHighText,
-            dropdownObject.transform,
-            Vector2.zero,
-            size,
-            24f,
-            buttonTextColor,
-            FontStyles.Bold
-        );
-
-        ApplyNormalGradient(label);
-        dropdown.captionText = label;
-
-        TMP_Text itemText = CreateText(
-            "DropdownItemText",
-            "Option",
-            dropdownObject.transform,
-            Vector2.zero,
-            size,
-            22f,
-            buttonTextColor,
-            FontStyles.Normal
-        );
-
-        ApplyNormalGradient(itemText);
-        dropdown.itemText = itemText;
-        itemText.gameObject.SetActive(false);
-
-        return dropdown;
     }
 
     private void StartMainGame()
@@ -1185,10 +1228,5 @@ public class BremenStartMenuDesignUI : MonoBehaviour
             backgroundMusicSource.volume = value;
 
         Debug.Log("Sound geändert: " + value);
-    }
-
-    private void OnGraphicsChanged(int index)
-    {
-        Debug.Log("Grafik geändert: " + index);
     }
 }

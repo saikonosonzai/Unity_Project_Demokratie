@@ -360,11 +360,11 @@ MonoBehaviour:
   playBackgroundMusic: 1
   loopBackgroundMusic: 1
   backgroundMusicVolume: 0.45
-  backgroundSprite: {fileID: 21300000, guid: 44c2839ea67337c4585f7a8ca9d4bc9f, type: 3}
+  backgroundSprite: {fileID: 21300000, guid: ed0afc92d58f1f94ebfefd7e0eff0350, type: 3}
   submenuBlurredBackgroundSprite: {fileID: 21300000, guid: 409614e03491ae84da1cd2929c7b0a21, type: 3}
   backgroundColor: {r: 0.06, g: 0.025, b: 0.015, a: 1}
   darkOverlayColor: {r: 0, g: 0, b: 0, a: 0.35}
-  submenuOverlayColor: {r: 0, g: 0, b: 0, a: 0.55}
+  submenuOverlayColor: {r: 0, g: 0, b: 0, a: 0.7607843}
   gameTitle: Rathaus Escape
   titleFont: {fileID: 11400000, guid: b1e12a5acf8302a44ba26dd2d63d37eb, type: 2}
   titleFontSize: 86
@@ -387,13 +387,21 @@ MonoBehaviour:
   creditsPageTitle: Mitwirkende
   controlsPageText: "W / A / S / D  -  Bewegen\nMaus  -  Umsehen\nE  -  Interagieren\nLeertaste 
     -  Springen\nShift  -  Rennen\nEsc  -  Men\xFC schlie\xDFen"
-  creditsPageText: "Bremer Rathaus\nF\xF6rderverein UNESCO Welterbe"
+  studentsHeadline: Studenten
+  studentsText: "Jella Dose\nSahel Moghimi\nAdnan Al-Msuker\nFabian Kattillus\nNoah
+    H\xE4rtel\nLeonie Will\nMarlon Schadeberg\nNathalie Marth\nValentin Bocquier\nJulia
+    Brianne Calkins\nEfe \xC7oban\nSimone Costanzo\nHanna Hasselquist Evensen\nVictor
+    Gardin\nVeli Kasim Kaya\nSacha Stankoski\nRaphael K\xF6rner\nNico Gmerek\nAmir
+    Valibeygi "
+  teachersHeadline: Lehrende
+  teachersText: 'Andreas Teufel
+
+    Ralf C. Schreier'
+  partnersHeadline: Projektpartner
+  partnersText: "Verein zur F\xF6rderung des Welterbes Rathaus und Roland in Bremen
+    e.V.\nSenatskanzlei Bremen\nBremische B\xFCrgerschaft\nHochschule Bremen\nHochschule
+    Bremerhaven\nKunsthalle Bremen\nWelterbeverein"
   soundLabelText: Sound
-  graphicsLabelText: Grafik
-  graphicsLowText: Niedrig
-  graphicsMediumText: Mittel
-  graphicsHighText: Hoch
-  graphicsUltraText: Ultra
   levels:
   - levelName: Untere Rathaushalle
     levelImage: {fileID: 21300000, guid: 1933a2e9722633247b10d985ef8b2f85, type: 3}
@@ -466,6 +474,14 @@ MonoBehaviour:
   creditsLineSpacing: 52
   submenuTextLineWidth: 900
   submenuTextLineHeight: 52
+  creditsColumnStartPosition: {x: 0, y: 135}
+  creditsColumnSpacing: 520
+  creditsHeadlineFontSize: 34
+  creditsNamesFontSize: 22
+  creditsNamesLineSpacing: 30
+  creditsSpaceAfterHeadline: 48
+  creditsColumnWidth: 430
+  creditsLineHeight: 34
 --- !u!4 &689897360
 Transform:
   m_ObjectHideFlags: 0
