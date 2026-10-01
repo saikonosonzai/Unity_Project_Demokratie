@@ -20,6 +20,21 @@ public class CollectableController : MonoBehaviour
     {
         ItemManager.Instance.CollectItem(itemType);
 
+        if (itemType == ItemType.Bilder)
+        {
+           GameStateManager.Instance.finishedClockPuzzle();
+        }
+
+        if (itemType == ItemType.BremenKey)
+        {
+            GameStateManager.Instance.activateChestCollision();
+        }
+        
+        if (itemType == ItemType.Compass)
+        {
+            GameStateManager.Instance.finishedHallwayPuzzle();
+        }
+
         gameObject.SetActive(false);
     }
     
