@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f911b9a4226273c4e913b0a6c9f4c877, type: 3}
-  m_Name: D10KA
+  m_Name: D9KA
   m_EditorClassIdentifier: Assembly-CSharp::BremenDialogueData
   lines:
   - speakerName: Roland
@@ -20,3 +20,9 @@ MonoBehaviour:
     customPortraitPosition: {x: 0, y: 0}
     text: "Du hast den Senatssaal abgeschlossen und die n\xE4chste Ratssitzung vorbereitet
       sehr gut! Damit hast du dir auch schon das 3. Schl\xFCsselfragment gesichert. "
+  - speakerName: Roland
+    portrait: {fileID: 21300000, guid: e9a6d1c69cd6d9d489bbeb4c0c86a767, type: 3}
+    overridePortraitLayout: 0
+    customPortraitSize: {x: 0, y: 0}
+    customPortraitPosition: {x: 0, y: 0}
+    text: "Au\xDFerdem hast du eine Spende f\xFCr die Seenotretter simuliert. Klasse! "

@@ -15,6 +15,10 @@ public class BremerCandyGameUI : MonoBehaviour
     public Button restartButton;
     public Button skipButton;
 
+    [Header("Schrift")]
+    public TMP_FontAsset uiFont;
+    public bool applyFontToButtons = true;
+
     [Header("Sprites")]
     public Sprite swordSprite;
 
@@ -48,6 +52,8 @@ public class BremerCandyGameUI : MonoBehaviour
 
     private void Start()
     {
+        ApplyUIFont();
+
         if (restartButton != null)
         {
             restartButton.onClick.RemoveAllListeners();
@@ -61,9 +67,37 @@ public class BremerCandyGameUI : MonoBehaviour
         }
     }
 
+    private void ApplyUIFont()
+    {
+        if (uiFont == null)
+            return;
+
+        if (infoText != null)
+            infoText.font = uiFont;
+
+        if (!applyFontToButtons)
+            return;
+
+        if (restartButton != null)
+        {
+            TMP_Text restartText = restartButton.GetComponentInChildren<TMP_Text>(true);
+            if (restartText != null)
+                restartText.font = uiFont;
+        }
+
+        if (skipButton != null)
+        {
+            TMP_Text skipText = skipButton.GetComponentInChildren<TMP_Text>(true);
+            if (skipText != null)
+                skipText.font = uiFont;
+        }
+    }
+
     public void StartGame()
     {
         StopAllCoroutines();
+
+        ApplyUIFont();
 
         selectedPosition = null;
         isBusy = false;
@@ -75,7 +109,7 @@ public class BremerCandyGameUI : MonoBehaviour
         GenerateBoard();
         RenderAll();
 
-        SetInfo("Bringe das Schwert nach unten! Züge: " + movesLeft);
+        SetInfo("Bringe das Schwert nach unten!");
     }
 
     public void RestartGame()
@@ -262,7 +296,7 @@ public class BremerCandyGameUI : MonoBehaviour
             SwapValues(a, b);
             RenderAll();
 
-            SetInfo("Kein Treffer. Versuch es nochmal. Züge: " + movesLeft);
+            SetInfo("Kein Treffer. Versuch es nochmal.");
 
             isBusy = false;
             yield break;
@@ -270,7 +304,7 @@ public class BremerCandyGameUI : MonoBehaviour
 
         movesLeft--;
 
-        SetInfo("Treffer! Züge: " + movesLeft);
+        SetInfo("Treffer!");
 
         yield return StartCoroutine(ProcessBoard());
 
@@ -288,7 +322,7 @@ public class BremerCandyGameUI : MonoBehaviour
             }
             else
             {
-                SetInfo("Bringe das Schwert nach unten! Züge: " + movesLeft);
+                SetInfo("Bringe das Schwert nach unten!");
             }
         }
 
@@ -550,7 +584,12 @@ public class BremerCandyGameUI : MonoBehaviour
 
     private void SetInfo(string message)
     {
-        if (infoText != null)
-            infoText.text = message;
+        if (infoText == null)
+            return;
+
+        if (uiFont != null)
+            infoText.font = uiFont;
+
+        infoText.text = message;
     }
 }
