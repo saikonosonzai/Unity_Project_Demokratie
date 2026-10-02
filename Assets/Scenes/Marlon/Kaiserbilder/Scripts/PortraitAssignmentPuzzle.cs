@@ -40,12 +40,6 @@ public class PortraitAssignmentPuzzle : MonoBehaviour
     [SerializeField] private UnityEvent onPuzzleSolved;
     [SerializeField] private UnityEvent onWrongAssignment;
 
-    [Header("Dialog nach Lösung")]
-    [SerializeField] private UnityEvent onDialogueAfterSolved;
-
-    [Header("Objekte nach Lösung aktivieren")]
-    [SerializeField] private GameObject[] objectsToActivateAfterSolved;
-
     [Header("Canvas")]
     [SerializeField] private Canvas puzzleCanvas;
     [SerializeField] private int sortingOrder = 500;
@@ -334,23 +328,7 @@ public class PortraitAssignmentPuzzle : MonoBehaviour
 
         Debug.Log("TEST: DAS KAISERBILDER-RÄTSEL WURDE GELÖST!");
 
-        ActivateObjectsAfterSolved();
-
-        onDialogueAfterSolved?.Invoke();
-
         onPuzzleSolved?.Invoke();
-    }
-
-    private void ActivateObjectsAfterSolved()
-    {
-        if (objectsToActivateAfterSolved == null || objectsToActivateAfterSolved.Length == 0)
-            return;
-
-        for (int i = 0; i < objectsToActivateAfterSolved.Length; i++)
-        {
-            if (objectsToActivateAfterSolved[i] != null)
-                objectsToActivateAfterSolved[i].SetActive(true);
-        }
     }
 
     private void InitializeSlots()
@@ -406,7 +384,6 @@ public class PortraitAssignmentPuzzle : MonoBehaviour
         }
 
         int index = Mathf.Clamp(slot.materialIndex, 0, materials.Length - 1);
-
         materials[index] = materialToApply;
         slot.pictureRenderer.materials = materials;
 
@@ -633,7 +610,6 @@ public class PortraitAssignmentPuzzle : MonoBehaviour
             leftArrowSprite,
             "←"
         );
-
         leftButton.onClick.AddListener(SelectPreviousImage);
 
         rightButton = CreateButton(
@@ -644,7 +620,6 @@ public class PortraitAssignmentPuzzle : MonoBehaviour
             rightArrowSprite,
             "→"
         );
-
         rightButton.onClick.AddListener(SelectNextImage);
 
         confirmButton = CreateButton(
@@ -741,7 +716,7 @@ public class PortraitAssignmentPuzzle : MonoBehaviour
         ColorBlock colors = button.colors;
         colors.normalColor = Color.white;
         colors.highlightedColor = new Color(1f, 1f, 1f, 0.85f);
-        colors.pressedColor = new Color(0.8f, 0.8f, 0.85f);
+        colors.pressedColor = new Color(0.8f, 0.8f, 0.8f, 0.85f);
         colors.selectedColor = Color.white;
         colors.disabledColor = new Color(1f, 1f, 1f, 0.4f);
         colors.colorMultiplier = 1f;

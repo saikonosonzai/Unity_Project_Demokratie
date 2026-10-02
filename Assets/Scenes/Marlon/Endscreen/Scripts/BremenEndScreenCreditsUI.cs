@@ -66,9 +66,14 @@ public class BremenEndScreenCreditsUI : MonoBehaviour
 
     [Header("Scroll Settings")]
     [SerializeField] private float scrollSpeed = 55f;
+
+    // Kleinerer negativer Wert = Titel kommt früher ins Bild
     [SerializeField] private float startYPosition = -480f;
+
     [SerializeField] private bool autoReturnToMainMenu = true;
     [SerializeField] private float waitAfterCredits = 2f;
+
+    // Wie weit nach dem letzten Namen noch weitergescrollt wird
     [SerializeField] private float extraScrollAfterLastName = 180f;
 
     [Header("Layout")]
@@ -77,18 +82,8 @@ public class BremenEndScreenCreditsUI : MonoBehaviour
     [SerializeField] private Vector2 namesTextSize = new Vector2(900f, 180f);
 
     [SerializeField] private float spaceAfterMainTitle = 120f;
-
-    [Tooltip("Abstand zwischen Team-Überschrift und den Namen darunter. Für Block-Layout klein oder sogar negativ setzen.")]
-    [SerializeField] private float spaceAfterTeamTitle = -8f;
-
-    [Tooltip("Abstand zwischen dem letzten Namen und der nächsten Team-Überschrift.")]
-    [SerializeField] private float spaceAfterNames = 130f;
-
-    [Header("Auto Layout nach Zeilen")]
-    [SerializeField] private bool autoSizeNamesByLineCount = true;
-    [SerializeField] private float minNamesTextHeight = 20f;
-    [SerializeField] private float namesLineHeight = 24f;
-    [SerializeField] private bool countEmptyLines = false;
+    [SerializeField] private float spaceAfterTeamTitle = 18f;
+    [SerializeField] private float spaceAfterNames = 90f;
 
     private RectTransform creditsContentRect;
     private AudioSource musicSource;
@@ -227,7 +222,7 @@ public class BremenEndScreenCreditsUI : MonoBehaviour
         creditsContentRect.anchorMax = new Vector2(0.5f, 0.5f);
         creditsContentRect.pivot = new Vector2(0.5f, 0.5f);
         creditsContentRect.anchoredPosition = new Vector2(0f, startYPosition);
-        creditsContentRect.sizeDelta = new Vector2(1400f, 6000f);
+        creditsContentRect.sizeDelta = new Vector2(1400f, 4000f);
 
         float currentY = 0f;
         float lowestTextY = 0f;
@@ -247,8 +242,6 @@ public class BremenEndScreenCreditsUI : MonoBehaviour
             title.font = titleFont;
 
         title.alignment = TextAlignmentOptions.Center;
-        title.verticalAlignment = VerticalAlignmentOptions.Middle;
-
         ApplyTitleGradient(title);
         AddTextShadow(title.gameObject, new Color(0f, 0f, 0f, 0.85f), new Vector2(4f, -4f));
 
@@ -269,7 +262,6 @@ public class BremenEndScreenCreditsUI : MonoBehaviour
             );
 
             placeholder.alignment = TextAlignmentOptions.Center;
-            placeholder.verticalAlignment = VerticalAlignmentOptions.Middle;
             ApplyNamesGradient(placeholder);
 
             lowestTextY = currentY - namesTextSize.y * 0.5f;
@@ -289,9 +281,6 @@ public class BremenEndScreenCreditsUI : MonoBehaviour
                 ? "Namen hier eintragen"
                 : team.teamNames;
 
-            float dynamicNamesHeight = GetNamesTextHeight(teamNames);
-            Vector2 dynamicNamesTextSize = new Vector2(namesTextSize.x, dynamicNamesHeight);
-
             TMP_Text teamTitleText = CreateText(
                 teamTitle + "_Title",
                 teamTitle,
@@ -307,20 +296,19 @@ public class BremenEndScreenCreditsUI : MonoBehaviour
                 teamTitleText.font = teamTitleFont;
 
             teamTitleText.alignment = TextAlignmentOptions.Center;
-            teamTitleText.verticalAlignment = VerticalAlignmentOptions.Middle;
-
             ApplyTitleGradient(teamTitleText);
             AddTextShadow(teamTitleText.gameObject, new Color(0f, 0f, 0f, 0.75f), new Vector2(2.5f, -2.5f));
 
-            float titleBottomY = currentY - teamTitleSize.y * 0.5f;
-            float namesCenterY = titleBottomY - spaceAfterTeamTitle - dynamicNamesHeight * 0.5f;
+            lowestTextY = currentY - teamTitleSize.y * 0.5f;
+
+            currentY -= spaceAfterTeamTitle + teamTitleSize.y * 0.5f;
 
             TMP_Text namesText = CreateText(
                 teamTitle + "_Names",
                 teamNames,
                 contentObject.transform,
-                new Vector2(0f, namesCenterY),
-                dynamicNamesTextSize,
+                new Vector2(0f, currentY),
+                namesTextSize,
                 namesFontSize,
                 namesColor,
                 FontStyles.Normal
@@ -331,57 +319,21 @@ public class BremenEndScreenCreditsUI : MonoBehaviour
 
             namesText.alignment = TextAlignmentOptions.Center;
             namesText.verticalAlignment = VerticalAlignmentOptions.Middle;
-
             ApplyNamesGradient(namesText);
 
-            float namesBottomY = namesCenterY - dynamicNamesHeight * 0.5f;
-            lowestTextY = namesBottomY;
+            lowestTextY = currentY - namesTextSize.y * 0.5f;
 
-            currentY = namesBottomY - spaceAfterNames;
+            currentY -= namesTextSize.y + spaceAfterNames;
         }
 
         CalculateFinishScrollY(lowestTextY);
     }
 
-    private float GetNamesTextHeight(string names)
-    {
-        if (!autoSizeNamesByLineCount)
-            return namesTextSize.y;
-
-        int lineCount = CountTextLines(names);
-        float calculatedHeight = lineCount * namesLineHeight;
-
-        return Mathf.Max(minNamesTextHeight, calculatedHeight);
-    }
-
-    private int CountTextLines(string text)
-    {
-        if (string.IsNullOrWhiteSpace(text))
-            return 1;
-
-        string normalizedText = text.Replace("\r\n", "\n").Replace("\r", "\n");
-        string[] lines = normalizedText.Split('\n');
-
-        int count = 0;
-
-        for (int i = 0; i < lines.Length; i++)
-        {
-            if (countEmptyLines)
-            {
-                count++;
-            }
-            else
-            {
-                if (!string.IsNullOrWhiteSpace(lines[i]))
-                    count++;
-            }
-        }
-
-        return Mathf.Max(1, count);
-    }
-
     private void CalculateFinishScrollY(float lowestTextY)
     {
+        // 540 ist die halbe Höhe von 1080p.
+        // Sobald die Unterkante vom letzten Namen über dem oberen Bildschirmrand ist,
+        // sind keine Namen mehr sichtbar.
         float screenTopY = 540f;
 
         finishScrollY = screenTopY + extraScrollAfterLastName - lowestTextY;

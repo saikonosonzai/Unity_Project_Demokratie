@@ -25,7 +25,7 @@ namespace AdventurePuzzleKit
     public class AKItem : MonoBehaviour
     {
         public enum SystemType { None, GeneratorSys, ValveSys, FlashlightSys, GasMaskSys, KeypadSys, PhoneSys, SafeSys, FuseBoxSys, PadlockSys, LeverSys, ThemedKeySys,
-        ChessSys, DoorSys, NoteSys, KeycardSys, ClockSys, HatchSys, StatueSys, CandleSys, KeySys, CollectableSys }
+        ChessSys, DoorSys, NoteSys, KeycardSys, ClockSys, HatchSys, StatueSys, CandleSys, KeySys, CollectableSys, SeasonClockSys}
         [SerializeField] private SystemType _systemType = SystemType.None;
 
         [Tooltip("This is to add a highlight name when looking at objects, ONLY if you're not using Examine Sys as Primary Type")]
@@ -62,6 +62,7 @@ namespace AdventurePuzzleKit
         private CandleItem _candleItem;
         private KeyItem _keyItem;
         private  CollectableItem _collectableItem;
+        private SeasonClockItem _seasonClockItem;
 
         private List<Renderer> childObjects = null; // Automatically populated in Awake()
         private Material parentMaterial;
@@ -103,6 +104,7 @@ namespace AdventurePuzzleKit
             CheckAndAssignComponent(ref _candleItem, SystemType.CandleSys, "CandleItem");
             CheckAndAssignComponent(ref _keyItem, SystemType.KeySys, "KeyItem");
             CheckAndAssignComponent(ref _collectableItem, SystemType.CollectableSys, "CollectableItem");
+            CheckAndAssignComponent(ref _seasonClockItem, SystemType.SeasonClockSys, "SeasonClockItem");
 
 
             // Check for parent renderer and assign material
@@ -287,6 +289,7 @@ namespace AdventurePuzzleKit
                 SystemType.CandleSys => _candleItem,
                 SystemType.KeySys => _keyItem,
                 SystemType.CollectableSys => _collectableItem,
+                SystemType.SeasonClockSys => _seasonClockItem,
                 _ => null
             };
         }
