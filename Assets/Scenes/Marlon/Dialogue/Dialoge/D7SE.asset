@@ -18,15 +18,15 @@ MonoBehaviour:
     overridePortraitLayout: 1
     customPortraitSize: {x: 600, y: 600}
     customPortraitPosition: {x: -150, y: -2}
-    text: "Oh nein, leider ist die T\xFCr zugefallen! ...Aber ich habe hier lange
+    text: "Oh nein, leider ist die T\xFCr zugefallen! ... Ich habe hier so lange
       auf jemanden gewartet..."
   - speakerName: Hausmagd
     portrait: {fileID: 21300000, guid: a273818cd03eb0e488911a0274a5fb74, type: 3}
     overridePortraitLayout: 1
     customPortraitSize: {x: 600, y: 600}
     customPortraitPosition: {x: -150, y: 0}
-    text: Ich arbeite schon mehrere Jahrhunderte hier und habe schon viele verschiedene
-      Staatsformen und Personen kennengelernt.
+    text: Ich arbeite schon mehrere Jahrhunderte hier und habe schon viele Staatsformen
+      und Menschen kennengelernt.
   - speakerName: Hausmagd
     portrait: {fileID: 21300000, guid: 05f9c3c489734c94596ccdc30a113793, type: 3}
     overridePortraitLayout: 1

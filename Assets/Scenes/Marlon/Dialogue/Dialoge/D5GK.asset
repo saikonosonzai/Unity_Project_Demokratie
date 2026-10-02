@@ -18,12 +18,12 @@ MonoBehaviour:
     overridePortraitLayout: 0
     customPortraitSize: {x: 0, y: 0}
     customPortraitPosition: {x: 0, y: 0}
-    text: Der Kompass hat dich in die Wandelhalle gebracht. Ein Ort, der verschiedene
-      wichtige Personen von Bremen darstellt. Ordne ihnen das richtige Zeichen zu,
+    text: Der Kompass hat dich in die Wandelhalle gebracht. Wichtige Personen sind
+      hier in Bronze und Marmor dargestellt. Ordne ihnen das richtige Zeichen zu,
       um dir den Weg zu bahnen.
   - speakerName: Roland
     portrait: {fileID: 21300000, guid: e9a6d1c69cd6d9d489bbeb4c0c86a767, type: 3}
     overridePortraitLayout: 0
     customPortraitSize: {x: 0, y: 0}
     customPortraitPosition: {x: 0, y: 0}
-    text: "Aber Achtung, in diesem Raum versteckt sich das zweite Schl\xFCsselfragment!"
+    text: "Aber Achtung, in diesem Raum versteckt sich auch das zweite Schl\xFCsselfragment!"

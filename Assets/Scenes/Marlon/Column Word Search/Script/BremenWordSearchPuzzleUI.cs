@@ -11,6 +11,27 @@ public class BremenWordSearchPuzzleUI : MonoBehaviour
     public TMP_Text infoText;
     public TMP_Text foundWordsText;
 
+    [Header("Oberer Text / Titel")]
+    public bool showTopText = true;
+    public TMP_Text topText;
+    [TextArea(1, 3)]
+    public string topTextContent = "Finde die Begriffe der Demokratie zwischen den Buchstaben";
+    public TMP_FontAsset topTextFont;
+    public float topTextFontSize = 34f;
+    public Color topTextColor = new Color(0.95f, 0.78f, 0.28f, 1f);
+    public Vector2 topTextPosition = new Vector2(0f, 410f);
+    public Vector2 topTextSize = new Vector2(900f, 70f);
+
+    [Header("Fonts")]
+    public TMP_FontAsset letterFont;
+    public TMP_FontAsset wordListFont;
+    public TMP_FontAsset infoFont;
+
+    [Header("Schriftgrößen")]
+    public float wordListFontSize = 20f;
+    public float wordListLineSpacing = 6f;
+    public float infoFontSize = 18f;
+
     [Header("Exit")]
     public PuzzleInteractable puzzleInteractable;
     public float closeDelay = 0.5f;
@@ -67,12 +88,92 @@ public class BremenWordSearchPuzzleUI : MonoBehaviour
         isSelecting = false;
         currentSelection.Clear();
 
+        CreateTopTextIfNeeded();
+        ApplyTextSettings();
+
         CreateWords();
         CreateFixedLetterGrid();
         CreateGridVisuals();
         RenderFoundWordsText();
 
         SetInfo("Markiere Wörter waagerecht oder senkrecht.");
+    }
+
+    private void CreateTopTextIfNeeded()
+    {
+        if (!showTopText)
+        {
+            if (topText != null)
+                topText.gameObject.SetActive(false);
+
+            return;
+        }
+
+        if (topText != null)
+        {
+            topText.gameObject.SetActive(true);
+            return;
+        }
+
+        GameObject textObject = new GameObject("TopText", typeof(RectTransform), typeof(TextMeshProUGUI));
+        textObject.transform.SetParent(transform, false);
+
+        RectTransform rect = textObject.GetComponent<RectTransform>();
+        rect.anchorMin = new Vector2(0.5f, 0.5f);
+        rect.anchorMax = new Vector2(0.5f, 0.5f);
+        rect.pivot = new Vector2(0.5f, 0.5f);
+        rect.anchoredPosition = topTextPosition;
+        rect.sizeDelta = topTextSize;
+
+        topText = textObject.GetComponent<TMP_Text>();
+        topText.alignment = TextAlignmentOptions.Center;
+        topText.raycastTarget = false;
+        topText.enableWordWrapping = true;
+    }
+
+    private void ApplyTextSettings()
+    {
+        if (topText != null)
+        {
+            topText.gameObject.SetActive(showTopText);
+            topText.text = topTextContent;
+            topText.fontSize = topTextFontSize;
+            topText.color = topTextColor;
+            topText.alignment = TextAlignmentOptions.Center;
+
+            if (topTextFont != null)
+                topText.font = topTextFont;
+
+            RectTransform topRect = topText.GetComponent<RectTransform>();
+
+            if (topRect != null)
+            {
+                topRect.anchorMin = new Vector2(0.5f, 0.5f);
+                topRect.anchorMax = new Vector2(0.5f, 0.5f);
+                topRect.pivot = new Vector2(0.5f, 0.5f);
+                topRect.anchoredPosition = topTextPosition;
+                topRect.sizeDelta = topTextSize;
+            }
+        }
+
+        if (foundWordsText != null)
+        {
+            foundWordsText.fontSize = wordListFontSize;
+            foundWordsText.lineSpacing = wordListLineSpacing;
+            foundWordsText.alignment = TextAlignmentOptions.Left;
+
+            if (wordListFont != null)
+                foundWordsText.font = wordListFont;
+        }
+
+        if (infoText != null)
+        {
+            infoText.fontSize = infoFontSize;
+            infoText.alignment = TextAlignmentOptions.Center;
+
+            if (infoFont != null)
+                infoText.font = infoFont;
+        }
     }
 
     private void CreateWords()
@@ -161,6 +262,7 @@ public class BremenWordSearchPuzzleUI : MonoBehaviour
         {
             float totalWidth = gridSize * cellSize.x + (gridSize - 1) * spacing.x;
             float totalHeight = gridSize * cellSize.y + (gridSize - 1) * spacing.y;
+
             gridRect.sizeDelta = new Vector2(totalWidth, totalHeight);
         }
 
@@ -183,9 +285,27 @@ public class BremenWordSearchPuzzleUI : MonoBehaviour
                 BremenWordSearchCellUI cell = cellObject.GetComponent<BremenWordSearchCellUI>();
                 cell.Init(this, x, y, letters[x, y]);
 
+                ApplyLetterFontToCell(cellObject);
+
                 cells[x, y] = cell;
             }
         }
+    }
+
+    private void ApplyLetterFontToCell(GameObject cellObject)
+    {
+        if (cellObject == null)
+            return;
+
+        TMP_Text letterText = cellObject.GetComponentInChildren<TMP_Text>(true);
+
+        if (letterText == null)
+            return;
+
+        letterText.fontSize = letterFontSize;
+
+        if (letterFont != null)
+            letterText.font = letterFont;
     }
 
     public void BeginSelection(BremenWordSearchCellUI cell)
@@ -371,8 +491,11 @@ public class BremenWordSearchPuzzleUI : MonoBehaviour
         if (foundWordsText == null)
             return;
 
-        foundWordsText.fontSize = 20f;
-        foundWordsText.lineSpacing = 6f;
+        if (wordListFont != null)
+            foundWordsText.font = wordListFont;
+
+        foundWordsText.fontSize = wordListFontSize;
+        foundWordsText.lineSpacing = wordListLineSpacing;
         foundWordsText.alignment = TextAlignmentOptions.Left;
 
         string text = "";
@@ -397,8 +520,11 @@ public class BremenWordSearchPuzzleUI : MonoBehaviour
         {
             infoText.gameObject.SetActive(showInfoMessages);
             infoText.text = message;
-            infoText.fontSize = 18f;
+            infoText.fontSize = infoFontSize;
             infoText.alignment = TextAlignmentOptions.Center;
+
+            if (infoFont != null)
+                infoText.font = infoFont;
         }
 
         Debug.Log(message);
@@ -452,6 +578,11 @@ public class BremenWordSearchPuzzleUI : MonoBehaviour
     public float GetLetterFontSize()
     {
         return letterFontSize;
+    }
+
+    public TMP_FontAsset GetLetterFont()
+    {
+        return letterFont;
     }
 
     private class BremenWordData

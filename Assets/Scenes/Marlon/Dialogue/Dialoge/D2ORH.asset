@@ -24,7 +24,7 @@ MonoBehaviour:
     overridePortraitLayout: 0
     customPortraitSize: {x: 250, y: 330}
     customPortraitPosition: {x: -190, y: 0}
-    text: "Mein Name ist Roland, und ich wache seit Jahrhunderten \xFCber Bremen."
+    text: "Mein Name ist Roland und ich wache seit Jahrhunderten \xFCber Bremen."
   - speakerName: Roland
     portrait: {fileID: 21300000, guid: e9a6d1c69cd6d9d489bbeb4c0c86a767, type: 3}
     overridePortraitLayout: 0
@@ -52,7 +52,7 @@ MonoBehaviour:
     overridePortraitLayout: 0
     customPortraitSize: {x: 250, y: 330}
     customPortraitPosition: {x: -190, y: 0}
-    text: "Die Objekte haben eine lange Geschichte. Doch nun bist du hier gefangen.
+    text: "Seine Objekte haben eine lange Geschichte. Doch nun bist du hier gefangen.
       Die T\xFCren nach drau\xDFen sind versiegelt, bis du alle Herausforderungen
       gemeistert hast.  "
   - speakerName: Roland

@@ -34,6 +34,22 @@ public class BremenMillionaireQuizAutoUI : MonoBehaviour
     public bool restartOnWrongAnswer = true;
     public float nextQuestionDelay = 0.8f;
 
+    [Header("Fonts")]
+    public TMP_FontAsset titleFont;
+    public TMP_FontAsset questionFont;
+    public TMP_FontAsset answerFont;
+    public TMP_FontAsset answerLetterFont;
+    public TMP_FontAsset progressHeaderFont;
+    public TMP_FontAsset progressItemFont;
+
+    [Header("Font Sizes")]
+    [Range(10f, 80f)] public float titleFontSize = 32f;
+    [Range(10f, 60f)] public float progressHeaderFontSize = 18f;
+    [Range(10f, 50f)] public float progressItemFontSize = 16f;
+    [Range(10f, 60f)] public float questionFontSize = 23f;
+    [Range(10f, 45f)] public float answerLetterFontSize = 22f;
+    [Range(10f, 45f)] public float answerFontSize = 17f;
+
     [Header("Optional Full Box Sprites")]
     public Sprite topBarSprite;
     public Sprite questionBoxSprite;
@@ -108,9 +124,19 @@ public class BremenMillionaireQuizAutoUI : MonoBehaviour
     public Color wrongAnswerColor = new Color(0.58f, 0.18f, 0.16f, 1f);
 
     [Header("Progress States")]
-    public Color progressNormalColor = new Color(0.065f, 0.08f, 0.26f, 0.95f);
-    public Color progressCurrentColor = new Color(0.54f, 0.35f, 0.13f, 1f);
     public Color progressDoneColor = new Color(0.26f, 0.50f, 0.23f, 1f);
+    public Color progressCurrentColor = new Color(0.54f, 0.35f, 0.13f, 1f);
+    public Color progressNextColor = new Color(0.12f, 0.20f, 0.42f, 1f);
+    public Color progressNormalColor = new Color(0.065f, 0.08f, 0.26f, 0.95f);
+
+    [Header("Progress Text Colors")]
+    public Color progressDoneTextColor = new Color(0.97f, 0.93f, 0.86f, 1f);
+    public Color progressCurrentTextColor = new Color(1f, 0.80f, 0.28f, 1f);
+    public Color progressNextTextColor = new Color(0.85f, 0.90f, 1f, 1f);
+    public Color progressNormalTextColor = new Color(0.97f, 0.93f, 0.86f, 1f);
+
+    [Header("Progress Options")]
+    public bool highlightNextQuestion = true;
 
     [Header("Solved Event")]
     public UnityEvent OnQuizSolved;
@@ -286,10 +312,11 @@ public class BremenMillionaireQuizAutoUI : MonoBehaviour
             "Title",
             topBar.transform,
             "QUIZ",
-            32f,
+            titleFontSize,
             FontStyles.Bold,
             TextAlignmentOptions.Center,
-            gold
+            gold,
+            titleFont
         );
 
         RectTransform titleRect = title.rectTransform;
@@ -330,10 +357,11 @@ public class BremenMillionaireQuizAutoUI : MonoBehaviour
             "ProgressHeader",
             progressPanel.transform,
             "FORTSCHRITT",
-            18f,
+            progressHeaderFontSize,
             FontStyles.Bold,
             TextAlignmentOptions.Center,
-            gold
+            gold,
+            progressHeaderFont
         );
 
         RectTransform headerRect = header.rectTransform;
@@ -396,10 +424,11 @@ public class BremenMillionaireQuizAutoUI : MonoBehaviour
                 "ProgressText_" + displayIndex,
                 item.transform,
                 "Frage " + displayIndex,
-                16f,
+                progressItemFontSize,
                 FontStyles.Bold,
                 TextAlignmentOptions.Center,
-                lightText
+                lightText,
+                progressItemFont
             );
 
             RectTransform txtRect = txt.rectTransform;
@@ -482,10 +511,11 @@ public class BremenMillionaireQuizAutoUI : MonoBehaviour
             "QuestionText",
             questionPanel.transform,
             "Frage steht hier",
-            23f,
+            questionFontSize,
             FontStyles.Bold,
             TextAlignmentOptions.Center,
-            darkText
+            darkText,
+            questionFont
         );
 
         RectTransform qRect = questionText.rectTransform;
@@ -569,10 +599,11 @@ public class BremenMillionaireQuizAutoUI : MonoBehaviour
             "LetterText",
             letterBox.transform,
             label,
-            22f,
+            answerLetterFontSize,
             FontStyles.Bold,
             TextAlignmentOptions.Center,
-            gold
+            gold,
+            answerLetterFont
         );
 
         RectTransform ltRect = letterText.rectTransform;
@@ -599,10 +630,11 @@ public class BremenMillionaireQuizAutoUI : MonoBehaviour
             "Answer" + label + "Text",
             buttonObject.transform,
             "Antwort",
-            17f,
+            answerFontSize,
             FontStyles.Bold,
             TextAlignmentOptions.MidlineLeft,
-            lightText
+            lightText,
+            answerFont
         );
 
         RectTransform textRect = text.rectTransform;
@@ -720,7 +752,8 @@ public class BremenMillionaireQuizAutoUI : MonoBehaviour
         float fontSize,
         FontStyles style,
         TextAlignmentOptions alignment,
-        Color color)
+        Color color,
+        TMP_FontAsset font = null)
     {
         GameObject textObject = new GameObject(objectName, typeof(RectTransform), typeof(TextMeshProUGUI));
         textObject.transform.SetParent(parent, false);
@@ -734,6 +767,9 @@ public class BremenMillionaireQuizAutoUI : MonoBehaviour
         text.enableWordWrapping = true;
         text.raycastTarget = false;
         text.overflowMode = TextOverflowModes.Ellipsis;
+
+        if (font != null)
+            text.font = font;
 
         Shadow shadow = textObject.AddComponent<Shadow>();
         shadow.effectColor = new Color(0f, 0f, 0f, 0.45f);
@@ -944,20 +980,29 @@ public class BremenMillionaireQuizAutoUI : MonoBehaviour
             if (progressImages[i] == null || progressTexts[i] == null)
                 continue;
 
-            if (i < currentQuestionIndex)
+            bool isDone = i < currentQuestionIndex;
+            bool isCurrent = i == currentQuestionIndex && !quizSolved;
+            bool isNext = highlightNextQuestion && i == currentQuestionIndex + 1 && !quizSolved;
+
+            if (isDone)
             {
                 SetProgressColor(i, progressDoneColor);
-                progressTexts[i].color = lightText;
+                progressTexts[i].color = progressDoneTextColor;
             }
-            else if (i == currentQuestionIndex && !quizSolved)
+            else if (isCurrent)
             {
                 SetProgressColor(i, progressCurrentColor);
-                progressTexts[i].color = lightText;
+                progressTexts[i].color = progressCurrentTextColor;
+            }
+            else if (isNext)
+            {
+                SetProgressColor(i, progressNextColor);
+                progressTexts[i].color = progressNextTextColor;
             }
             else
             {
                 SetProgressColor(i, progressNormalColor);
-                progressTexts[i].color = lightText;
+                progressTexts[i].color = progressNormalTextColor;
             }
 
             progressTexts[i].text = "Frage " + (i + 1);

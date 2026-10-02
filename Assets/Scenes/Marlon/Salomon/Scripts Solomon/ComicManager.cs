@@ -40,13 +40,14 @@ public class ComicManager : MonoBehaviour
     public Sprite correctResultSprite;
 
     [TextArea(2, 6)]
-    public string correctResultExplanation = "Richtig! Diese Wahl führt zum Ziel. Du hast die Geschichte erfolgreich beendet.";
+    public string correctResultExplanation =
+        "Richtig! Diese Wahl führt zum Ziel. Du hast die Geschichte erfolgreich beendet.";
 
     [Header("Falsche Antwort")]
     public Sprite wrongResultSprite;
 
     [TextArea(2, 6)]
-    public string wrongResultExplanation = "Falsch! Diese Wahl führt nicht weiter. Das Schwert muss noch einmal seinen Weg finden.";
+    public string wrongResultExplanation = "";
 
     [Header("Candy/Sword-Spiel")]
     public BremerCandyGameUI candyGame;
@@ -340,12 +341,12 @@ public class ComicManager : MonoBehaviour
 
     private void ChooseLeft()
     {
-        ShowResultScreen(false);
+        ShowResultScreen(true);
     }
 
     private void ChooseRight()
     {
-        ShowResultScreen(true);
+        ShowResultScreen(false);
     }
 
     private void ShowResultScreen(bool correct)
@@ -379,7 +380,18 @@ public class ComicManager : MonoBehaviour
         }
 
         if (resultText != null)
-            resultText.text = correct ? correctResultExplanation : wrongResultExplanation;
+        {
+            if (correct)
+            {
+                resultText.gameObject.SetActive(true);
+                resultText.text = correctResultExplanation;
+            }
+            else
+            {
+                resultText.text = "";
+                resultText.gameObject.SetActive(false);
+            }
+        }
 
         if (resultNextButton != null)
             resultNextButton.gameObject.SetActive(true);
@@ -419,11 +431,11 @@ public class ComicManager : MonoBehaviour
 
         if (comicText != null)
         {
-            comicText.gameObject.SetActive(true);
-            comicText.text = "Das Schwert muss noch einmal seinen Weg finden.";
+            comicText.text = "";
+            comicText.gameObject.SetActive(false);
         }
 
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(0.2f);
 
         currentPageIndex = comicPages.Length - 1;
 
@@ -503,12 +515,18 @@ public class ComicManager : MonoBehaviour
 
         if (comicText != null)
             comicText.gameObject.SetActive(true);
+
+        if (resultText != null)
+            resultText.gameObject.SetActive(true);
     }
 
     private void DisableThisGameForever()
     {
         if (paintingColliderToDisable != null)
             paintingColliderToDisable.enabled = false;
+
+        if (objectToDisableAfterCompleted != null)
+            objectToDisableAfterCompleted.SetActive(false);
     }
 
     private void DisableExtraObjects()

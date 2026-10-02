@@ -18,15 +18,14 @@ MonoBehaviour:
     overridePortraitLayout: 0
     customPortraitSize: {x: 0, y: 0}
     customPortraitPosition: {x: 0, y: 0}
-    text: "Du hast das erste Schl\xFCsselfragment gefunden!"
+    text: "Du hast das erste Fragment des Schl\xFCssels gefunden!"
   - speakerName: Roland
     portrait: {fileID: 21300000, guid: e9a6d1c69cd6d9d489bbeb4c0c86a767, type: 3}
     overridePortraitLayout: 0
     customPortraitSize: {x: 0, y: 0}
     customPortraitPosition: {x: 0, y: 0}
-    text: "Sehr gut! Hiermit hast du deinen ersten Schritt in Richtung Ausweg gefunden.
-      Es gibt insgesamt 4 Schl\xFCsselfragmente im Rathaus, finde alle und du wirst
-      den Weg zur Freiheit finden. \r\n"
+    text: "Sehr gut! Es gibt insgesamt noch drei weitere Fragmente im Rathaus, finde
+      sie alle und du wirst den Weg zur Freiheit finden. \r\n"
   - speakerName: Roland
     portrait: {fileID: 21300000, guid: 6319b97ec099d844c9c71c021a223bac, type: 3}
     overridePortraitLayout: 1

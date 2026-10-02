@@ -18,4 +18,22 @@ MonoBehaviour:
     overridePortraitLayout: 0
     customPortraitSize: {x: 0, y: 0}
     customPortraitPosition: {x: 0, y: 0}
-    text: "Sehr gut, du hast das erste R\xE4tsel geschafft. Auf zum n\xE4chsten R\xE4tsel!"
+    text: "Diesen Raum nennt man die \u201EG\xFCldenkammer\u201C. Er war fr\xFCher
+      schlicht und wurde nur selten genutzt. Doch 1905 erhielt der K\xFCnstler Heinrich
+      Vogeler einen Auftrag: Er sollte ihn besonders und einzigartig gestalten."
+  - speakerName: Roland
+    portrait: {fileID: 21300000, guid: e9a6d1c69cd6d9d489bbeb4c0c86a767, type: 3}
+    overridePortraitLayout: 0
+    customPortraitSize: {x: 0, y: 0}
+    customPortraitPosition: {x: 0, y: 0}
+    text: "Diese Aufgabe gelang ihm. Vergoldetes Leder, der Kronleuchter und die
+      prunkvollen St\xFChle sollten jeden Senator bedeutend wirken lassen. Doch Vogeler
+      versteckte etwas in dieser Sch\xF6nheit."
+  - speakerName: Roland
+    portrait: {fileID: 21300000, guid: e9a6d1c69cd6d9d489bbeb4c0c86a767, type: 3}
+    overridePortraitLayout: 0
+    customPortraitSize: {x: 0, y: 0}
+    customPortraitPosition: {x: 0, y: 0}
+    text: "Die Sachen auf dem Tisch stammen von ihm. Auch die Kamera. Er wusste,
+      dass eines Tages jemand danach suchen w\xFCrde. Ich habe auf Dich gewartet,
+      denn diese Person bist Du!"
