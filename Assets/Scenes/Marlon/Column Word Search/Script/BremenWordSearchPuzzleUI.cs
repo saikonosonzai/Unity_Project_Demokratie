@@ -22,6 +22,16 @@ public class BremenWordSearchPuzzleUI : MonoBehaviour
     public Vector2 topTextPosition = new Vector2(0f, 410f);
     public Vector2 topTextSize = new Vector2(900f, 70f);
 
+    [Header("Wörter übrig Anzeige")]
+    public bool showRemainingWordsText = true;
+    public TMP_Text remainingWordsText;
+    public string remainingWordsPrefix = "Wörter übrig: ";
+    public TMP_FontAsset remainingWordsFont;
+    public float remainingWordsFontSize = 24f;
+    public Color remainingWordsColor = new Color(0.95f, 0.78f, 0.28f, 1f);
+    public Vector2 remainingWordsPosition = new Vector2(-620f, 230f);
+    public Vector2 remainingWordsSize = new Vector2(360f, 60f);
+
     [Header("Fonts")]
     public TMP_FontAsset letterFont;
     public TMP_FontAsset wordListFont;
@@ -89,12 +99,14 @@ public class BremenWordSearchPuzzleUI : MonoBehaviour
         currentSelection.Clear();
 
         CreateTopTextIfNeeded();
+        CreateRemainingWordsTextIfNeeded();
         ApplyTextSettings();
 
         CreateWords();
         CreateFixedLetterGrid();
         CreateGridVisuals();
         RenderFoundWordsText();
+        UpdateRemainingWordsText();
 
         SetInfo("Markiere Wörter waagerecht oder senkrecht.");
     }
@@ -131,6 +143,38 @@ public class BremenWordSearchPuzzleUI : MonoBehaviour
         topText.enableWordWrapping = true;
     }
 
+    private void CreateRemainingWordsTextIfNeeded()
+    {
+        if (!showRemainingWordsText)
+        {
+            if (remainingWordsText != null)
+                remainingWordsText.gameObject.SetActive(false);
+
+            return;
+        }
+
+        if (remainingWordsText != null)
+        {
+            remainingWordsText.gameObject.SetActive(true);
+            return;
+        }
+
+        GameObject textObject = new GameObject("RemainingWordsText", typeof(RectTransform), typeof(TextMeshProUGUI));
+        textObject.transform.SetParent(transform, false);
+
+        RectTransform rect = textObject.GetComponent<RectTransform>();
+        rect.anchorMin = new Vector2(0.5f, 0.5f);
+        rect.anchorMax = new Vector2(0.5f, 0.5f);
+        rect.pivot = new Vector2(0.5f, 0.5f);
+        rect.anchoredPosition = remainingWordsPosition;
+        rect.sizeDelta = remainingWordsSize;
+
+        remainingWordsText = textObject.GetComponent<TMP_Text>();
+        remainingWordsText.alignment = TextAlignmentOptions.Center;
+        remainingWordsText.raycastTarget = false;
+        remainingWordsText.enableWordWrapping = false;
+    }
+
     private void ApplyTextSettings()
     {
         if (topText != null)
@@ -153,6 +197,28 @@ public class BremenWordSearchPuzzleUI : MonoBehaviour
                 topRect.pivot = new Vector2(0.5f, 0.5f);
                 topRect.anchoredPosition = topTextPosition;
                 topRect.sizeDelta = topTextSize;
+            }
+        }
+
+        if (remainingWordsText != null)
+        {
+            remainingWordsText.gameObject.SetActive(showRemainingWordsText);
+            remainingWordsText.fontSize = remainingWordsFontSize;
+            remainingWordsText.color = remainingWordsColor;
+            remainingWordsText.alignment = TextAlignmentOptions.Center;
+
+            if (remainingWordsFont != null)
+                remainingWordsText.font = remainingWordsFont;
+
+            RectTransform remainingRect = remainingWordsText.GetComponent<RectTransform>();
+
+            if (remainingRect != null)
+            {
+                remainingRect.anchorMin = new Vector2(0.5f, 0.5f);
+                remainingRect.anchorMax = new Vector2(0.5f, 0.5f);
+                remainingRect.pivot = new Vector2(0.5f, 0.5f);
+                remainingRect.anchoredPosition = remainingWordsPosition;
+                remainingRect.sizeDelta = remainingWordsSize;
             }
         }
 
@@ -388,6 +454,7 @@ public class BremenWordSearchPuzzleUI : MonoBehaviour
             MarkCurrentSelectionAsFound();
             SetInfo("Gefunden: " + foundWord.word);
             RenderFoundWordsText();
+            UpdateRemainingWordsText();
             CheckWinCondition();
         }
         else
@@ -456,6 +523,34 @@ public class BremenWordSearchPuzzleUI : MonoBehaviour
         return new string(array);
     }
 
+    private int GetRemainingWordsCount()
+    {
+        int remaining = 0;
+
+        foreach (BremenWordData word in words)
+        {
+            if (!word.found)
+                remaining++;
+        }
+
+        return remaining;
+    }
+
+    private void UpdateRemainingWordsText()
+    {
+        if (remainingWordsText == null)
+            return;
+
+        remainingWordsText.gameObject.SetActive(showRemainingWordsText);
+        remainingWordsText.text = remainingWordsPrefix + GetRemainingWordsCount();
+        remainingWordsText.fontSize = remainingWordsFontSize;
+        remainingWordsText.color = remainingWordsColor;
+        remainingWordsText.alignment = TextAlignmentOptions.Center;
+
+        if (remainingWordsFont != null)
+            remainingWordsText.font = remainingWordsFont;
+    }
+
     private void CheckWinCondition()
     {
         foreach (BremenWordData word in words)
@@ -465,6 +560,8 @@ public class BremenWordSearchPuzzleUI : MonoBehaviour
         }
 
         puzzleSolved = true;
+
+        UpdateRemainingWordsText();
 
         SetInfo("Gelöst! Alle Wörter wurden gefunden.");
         Debug.Log("Wortsuchrätsel gelöst.");

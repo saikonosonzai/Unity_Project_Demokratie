@@ -19,6 +19,65 @@ public class BremenDemocracyBlockPuzzleUI : MonoBehaviour
     public Image backgroundImage;
     public TMP_Text infoText;
 
+    [Header("Überschrift")]
+    public bool showTitle = true;
+    public TMP_Text titleText;
+    public string titleContent = "Demokratie-Bausteine";
+    public TMP_FontAsset titleFont;
+    public float titleFontSize = 38f;
+    public Color titleColor = new Color(0.95f, 0.78f, 0.28f, 1f);
+    public Vector2 titlePosition = new Vector2(0f, 415f);
+    public Vector2 titleSize = new Vector2(900f, 70f);
+
+    [Header("Beschreibung rechts")]
+    public bool showDescription = true;
+    public TMP_Text descriptionText;
+
+    [TextArea(4, 10)]
+    public string descriptionContent =
+        "Ziehe die 2x2-Blöcke so, dass jeder farbige Bereich alle vier Werte enthält.\n\n" +
+        "Jeder Bereich braucht Freiheit, Wasser, Gleichberechtigung und Wahlen.";
+
+    public TMP_FontAsset descriptionFont;
+    public float descriptionFontSize = 21f;
+    public Color descriptionColor = new Color(0.92f, 0.86f, 0.72f, 1f);
+    public Vector2 descriptionPosition = new Vector2(610f, 60f);
+    public Vector2 descriptionSize = new Vector2(420f, 250f);
+
+    [Header("Symbol-Legende links")]
+    public bool showLegend = true;
+
+    public TMP_Text legendTitleText;
+    public string legendTitleContent = "Werte";
+    public TMP_FontAsset legendTitleFont;
+    public float legendTitleFontSize = 28f;
+    public Color legendTitleColor = new Color(0.95f, 0.78f, 0.28f, 1f);
+    public Vector2 legendTitlePosition = new Vector2(-610f, 275f);
+    public Vector2 legendTitleSize = new Vector2(360f, 50f);
+
+    [Header("Legende Sprites")]
+    public Sprite legendSprite1;
+    public Sprite legendSprite2;
+    public Sprite legendSprite3;
+    public Sprite legendSprite4;
+
+    public string legendName1 = "Freiheit";
+    public string legendName2 = "Wasser";
+    public string legendName3 = "Gleichberechtigung";
+    public string legendName4 = "Wahlen";
+
+    public TMP_FontAsset legendNameFont;
+    public float legendNameFontSize = 18f;
+    public Color legendNameColor = new Color(0.92f, 0.86f, 0.72f, 1f);
+
+    public Vector2 legendStartPosition = new Vector2(-610f, 195f);
+    public Vector2 legendSpriteSize = new Vector2(72f, 72f);
+    public Vector2 legendNameSize = new Vector2(220f, 32f);
+    public float legendVerticalSpacing = 112f;
+
+    private Image[] legendImages;
+    private TMP_Text[] legendNameTexts;
+
     [Header("Exit")]
     public PuzzleInteractable puzzleInteractable;
     public float closeDelay = 0.2f;
@@ -72,10 +131,6 @@ public class BremenDemocracyBlockPuzzleUI : MonoBehaviour
     /*
      Schwerere, aber lösbare Zonenverteilung.
 
-     Die Bereiche sind NICHT mehr quadratisch.
-     Alle vier Farbbereiche hängen zusammen.
-     Es gibt keine einzelnen Ausreißer.
-
      Sichtbar von oben nach unten:
 
      3 3 3 4 4 4
@@ -84,17 +139,6 @@ public class BremenDemocracyBlockPuzzleUI : MonoBehaviour
      1 1 1 2 2 4
      1 1 2 2 2 2
      1 1 1 2 2 2
-
-     Wichtig:
-     In der Mitte gibt es bei x = 2, y = 2 eine 2x2-Stelle
-     mit allen vier Farben:
-
-     oben links     = Zone 3
-     oben rechts    = Zone 4
-     unten links    = Zone 1
-     unten rechts   = Zone 2
-
-     Dort passt der Block mit 4x Gleichberechtigung.
     */
     private readonly int[] zoneIds =
     {
@@ -136,6 +180,9 @@ public class BremenDemocracyBlockPuzzleUI : MonoBehaviour
 
         puzzleSolved = false;
 
+        CreateExtraUI();
+        ApplyExtraUISettings();
+
         FitBoardAndBackground();
         CreatePieceRoot();
         CreateGridSlots();
@@ -145,6 +192,332 @@ public class BremenDemocracyBlockPuzzleUI : MonoBehaviour
         RenderPieces();
 
         SetInfo("Ziehe die 2x2-Blöcke so, dass jeder Bereich alle vier Werte enthält.");
+    }
+
+    private void CreateExtraUI()
+    {
+        CreateTitleIfNeeded();
+        CreateDescriptionIfNeeded();
+        CreateLegendIfNeeded();
+    }
+
+    private void CreateTitleIfNeeded()
+    {
+        if (!showTitle)
+        {
+            if (titleText != null)
+                titleText.gameObject.SetActive(false);
+
+            return;
+        }
+
+        if (titleText != null)
+        {
+            titleText.gameObject.SetActive(true);
+            return;
+        }
+
+        GameObject titleObject = new GameObject("PuzzleTitleText", typeof(RectTransform), typeof(TextMeshProUGUI));
+        titleObject.transform.SetParent(transform, false);
+
+        RectTransform rect = titleObject.GetComponent<RectTransform>();
+        rect.anchorMin = new Vector2(0.5f, 0.5f);
+        rect.anchorMax = new Vector2(0.5f, 0.5f);
+        rect.pivot = new Vector2(0.5f, 0.5f);
+        rect.anchoredPosition = titlePosition;
+        rect.sizeDelta = titleSize;
+
+        titleText = titleObject.GetComponent<TMP_Text>();
+        titleText.alignment = TextAlignmentOptions.Center;
+        titleText.raycastTarget = false;
+        titleText.enableWordWrapping = true;
+    }
+
+    private void CreateDescriptionIfNeeded()
+    {
+        if (!showDescription)
+        {
+            if (descriptionText != null)
+                descriptionText.gameObject.SetActive(false);
+
+            return;
+        }
+
+        if (descriptionText != null)
+        {
+            descriptionText.gameObject.SetActive(true);
+            return;
+        }
+
+        GameObject descriptionObject = new GameObject("PuzzleDescriptionText", typeof(RectTransform), typeof(TextMeshProUGUI));
+        descriptionObject.transform.SetParent(transform, false);
+
+        RectTransform rect = descriptionObject.GetComponent<RectTransform>();
+        rect.anchorMin = new Vector2(0.5f, 0.5f);
+        rect.anchorMax = new Vector2(0.5f, 0.5f);
+        rect.pivot = new Vector2(0.5f, 0.5f);
+        rect.anchoredPosition = descriptionPosition;
+        rect.sizeDelta = descriptionSize;
+
+        descriptionText = descriptionObject.GetComponent<TMP_Text>();
+        descriptionText.alignment = TextAlignmentOptions.TopLeft;
+        descriptionText.raycastTarget = false;
+        descriptionText.enableWordWrapping = true;
+    }
+
+    private void CreateLegendIfNeeded()
+    {
+        if (!showLegend)
+        {
+            if (legendTitleText != null)
+                legendTitleText.gameObject.SetActive(false);
+
+            if (legendImages != null)
+            {
+                for (int i = 0; i < legendImages.Length; i++)
+                {
+                    if (legendImages[i] != null)
+                        legendImages[i].gameObject.SetActive(false);
+                }
+            }
+
+            if (legendNameTexts != null)
+            {
+                for (int i = 0; i < legendNameTexts.Length; i++)
+                {
+                    if (legendNameTexts[i] != null)
+                        legendNameTexts[i].gameObject.SetActive(false);
+                }
+            }
+
+            return;
+        }
+
+        CreateLegendTitleIfNeeded();
+
+        if (legendImages == null || legendImages.Length != 4)
+            legendImages = new Image[4];
+
+        if (legendNameTexts == null || legendNameTexts.Length != 4)
+            legendNameTexts = new TMP_Text[4];
+
+        for (int i = 0; i < 4; i++)
+            CreateLegendEntryIfNeeded(i);
+    }
+
+    private void CreateLegendTitleIfNeeded()
+    {
+        if (legendTitleText != null)
+        {
+            legendTitleText.gameObject.SetActive(true);
+            return;
+        }
+
+        GameObject legendTitleObject = new GameObject("LegendTitleText", typeof(RectTransform), typeof(TextMeshProUGUI));
+        legendTitleObject.transform.SetParent(transform, false);
+
+        RectTransform rect = legendTitleObject.GetComponent<RectTransform>();
+        rect.anchorMin = new Vector2(0.5f, 0.5f);
+        rect.anchorMax = new Vector2(0.5f, 0.5f);
+        rect.pivot = new Vector2(0.5f, 0.5f);
+        rect.anchoredPosition = legendTitlePosition;
+        rect.sizeDelta = legendTitleSize;
+
+        legendTitleText = legendTitleObject.GetComponent<TMP_Text>();
+        legendTitleText.alignment = TextAlignmentOptions.Center;
+        legendTitleText.raycastTarget = false;
+        legendTitleText.enableWordWrapping = true;
+    }
+
+    private void CreateLegendEntryIfNeeded(int index)
+    {
+        if (legendImages[index] == null)
+        {
+            GameObject imageObject = new GameObject("LegendSprite_" + index, typeof(RectTransform), typeof(Image));
+            imageObject.transform.SetParent(transform, false);
+
+            Image image = imageObject.GetComponent<Image>();
+            image.raycastTarget = false;
+            image.preserveAspect = true;
+
+            legendImages[index] = image;
+        }
+        else
+        {
+            legendImages[index].gameObject.SetActive(true);
+        }
+
+        if (legendNameTexts[index] == null)
+        {
+            GameObject nameObject = new GameObject("LegendName_" + index, typeof(RectTransform), typeof(TextMeshProUGUI));
+            nameObject.transform.SetParent(transform, false);
+
+            TMP_Text nameText = nameObject.GetComponent<TMP_Text>();
+            nameText.alignment = TextAlignmentOptions.Center;
+            nameText.raycastTarget = false;
+            nameText.enableWordWrapping = true;
+
+            legendNameTexts[index] = nameText;
+        }
+        else
+        {
+            legendNameTexts[index].gameObject.SetActive(true);
+        }
+    }
+
+    private void ApplyExtraUISettings()
+    {
+        ApplyTitleSettings();
+        ApplyDescriptionSettings();
+        ApplyLegendSettings();
+    }
+
+    private void ApplyTitleSettings()
+    {
+        if (titleText == null)
+            return;
+
+        titleText.gameObject.SetActive(showTitle);
+        titleText.text = titleContent;
+        titleText.fontSize = titleFontSize;
+        titleText.color = titleColor;
+        titleText.alignment = TextAlignmentOptions.Center;
+
+        if (titleFont != null)
+            titleText.font = titleFont;
+
+        RectTransform rect = titleText.GetComponent<RectTransform>();
+
+        if (rect != null)
+        {
+            rect.anchorMin = new Vector2(0.5f, 0.5f);
+            rect.anchorMax = new Vector2(0.5f, 0.5f);
+            rect.pivot = new Vector2(0.5f, 0.5f);
+            rect.anchoredPosition = titlePosition;
+            rect.sizeDelta = titleSize;
+        }
+    }
+
+    private void ApplyDescriptionSettings()
+    {
+        if (descriptionText == null)
+            return;
+
+        descriptionText.gameObject.SetActive(showDescription);
+        descriptionText.text = descriptionContent;
+        descriptionText.fontSize = descriptionFontSize;
+        descriptionText.color = descriptionColor;
+        descriptionText.alignment = TextAlignmentOptions.TopLeft;
+
+        if (descriptionFont != null)
+            descriptionText.font = descriptionFont;
+
+        RectTransform rect = descriptionText.GetComponent<RectTransform>();
+
+        if (rect != null)
+        {
+            rect.anchorMin = new Vector2(0.5f, 0.5f);
+            rect.anchorMax = new Vector2(0.5f, 0.5f);
+            rect.pivot = new Vector2(0.5f, 0.5f);
+            rect.anchoredPosition = descriptionPosition;
+            rect.sizeDelta = descriptionSize;
+        }
+    }
+
+    private void ApplyLegendSettings()
+    {
+        if (!showLegend)
+            return;
+
+        if (legendTitleText != null)
+        {
+            legendTitleText.gameObject.SetActive(true);
+            legendTitleText.text = legendTitleContent;
+            legendTitleText.fontSize = legendTitleFontSize;
+            legendTitleText.color = legendTitleColor;
+            legendTitleText.alignment = TextAlignmentOptions.Center;
+
+            if (legendTitleFont != null)
+                legendTitleText.font = legendTitleFont;
+
+            RectTransform titleRect = legendTitleText.GetComponent<RectTransform>();
+
+            if (titleRect != null)
+            {
+                titleRect.anchorMin = new Vector2(0.5f, 0.5f);
+                titleRect.anchorMax = new Vector2(0.5f, 0.5f);
+                titleRect.pivot = new Vector2(0.5f, 0.5f);
+                titleRect.anchoredPosition = legendTitlePosition;
+                titleRect.sizeDelta = legendTitleSize;
+            }
+        }
+
+        if (legendImages == null || legendNameTexts == null)
+            return;
+
+        Sprite[] sprites =
+        {
+            legendSprite1 != null ? legendSprite1 : freiheitSprite,
+            legendSprite2 != null ? legendSprite2 : wasserSprite,
+            legendSprite3 != null ? legendSprite3 : gleichberechtigungSprite,
+            legendSprite4 != null ? legendSprite4 : wahlenSprite
+        };
+
+        string[] names =
+        {
+            legendName1,
+            legendName2,
+            legendName3,
+            legendName4
+        };
+
+        for (int i = 0; i < 4; i++)
+        {
+            Vector2 spritePosition = legendStartPosition + new Vector2(0f, -legendVerticalSpacing * i);
+            Vector2 namePosition = spritePosition + new Vector2(0f, -legendSpriteSize.y * 0.5f - 22f);
+
+            if (legendImages[i] != null)
+            {
+                legendImages[i].gameObject.SetActive(true);
+                legendImages[i].sprite = sprites[i];
+                legendImages[i].color = sprites[i] != null ? Color.white : new Color(1f, 1f, 1f, 0f);
+                legendImages[i].preserveAspect = true;
+
+                RectTransform imageRect = legendImages[i].GetComponent<RectTransform>();
+
+                if (imageRect != null)
+                {
+                    imageRect.anchorMin = new Vector2(0.5f, 0.5f);
+                    imageRect.anchorMax = new Vector2(0.5f, 0.5f);
+                    imageRect.pivot = new Vector2(0.5f, 0.5f);
+                    imageRect.anchoredPosition = spritePosition;
+                    imageRect.sizeDelta = legendSpriteSize;
+                }
+            }
+
+            if (legendNameTexts[i] != null)
+            {
+                legendNameTexts[i].gameObject.SetActive(true);
+                legendNameTexts[i].text = names[i];
+                legendNameTexts[i].fontSize = legendNameFontSize;
+                legendNameTexts[i].color = legendNameColor;
+                legendNameTexts[i].alignment = TextAlignmentOptions.Center;
+
+                if (legendNameFont != null)
+                    legendNameTexts[i].font = legendNameFont;
+
+                RectTransform nameRect = legendNameTexts[i].GetComponent<RectTransform>();
+
+                if (nameRect != null)
+                {
+                    nameRect.anchorMin = new Vector2(0.5f, 0.5f);
+                    nameRect.anchorMax = new Vector2(0.5f, 0.5f);
+                    nameRect.pivot = new Vector2(0.5f, 0.5f);
+                    nameRect.anchoredPosition = namePosition;
+                    nameRect.sizeDelta = legendNameSize;
+                }
+            }
+        }
     }
 
     private void FitBoardAndBackground()
@@ -253,22 +626,6 @@ public class BremenDemocracyBlockPuzzleUI : MonoBehaviour
         piecePositions = new Vector2Int[4];
         pieceResources = new DemocracyResourceType[4][];
         pieces = new BremenDemocracyPieceUI[4];
-
-        /*
-         Reihenfolge pro 2x2-Block:
-         [0] = unten links
-         [1] = unten rechts
-         [2] = oben links
-         [3] = oben rechts
-
-         Eine mögliche Lösung ist:
-         Piece 0 -> x 0, y 2
-         Piece 1 -> x 2, y 4
-         Piece 2 -> x 4, y 1
-         Piece 3 -> x 2, y 2
-
-         Piece 3 bleibt der Block mit 4 gleichen Icons.
-        */
 
         pieceResources[0] = new DemocracyResourceType[]
         {
@@ -652,12 +1009,16 @@ public class BremenDemocracyBlockPuzzleUI : MonoBehaviour
         {
             case 1:
                 return zone1Color;
+
             case 2:
                 return zone2Color;
+
             case 3:
                 return zone3Color;
+
             case 4:
                 return zone4Color;
+
             default:
                 return new Color(1f, 1f, 1f, 0.2f);
         }

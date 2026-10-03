@@ -22,16 +22,20 @@ public class PortraitAssignmentPuzzle : MonoBehaviour
 
         [Header("Materialien")]
         public Material emptyMaterial;
-        public Material[] portraitMaterials = new Material[3];
-        public string[] portraitDisplayNames = new string[3] { "Bild 1", "Bild 2", "Bild 3" };
+        public Material[] portraitMaterials = new Material[4];
+        public string[] portraitDisplayNames = new string[4] { "Bild 1", "Bild 2", "Bild 3", "Bild 4" };
 
         [Header("Lösung")]
-        [Range(0, 2)]
+        [Range(0, 3)]
         public int correctImageIndex = 0;
 
         [HideInInspector] public int currentImageIndex = -1;
         [HideInInspector] public bool confirmed = false;
     }
+
+    [Header("Allgemein")]
+    [Tooltip("Wie viele Bilder sollen in diesem Rätsel auswählbar sein? Bei 3 wird nur Bild 1-3 benutzt, bei 4 Bild 1-4.")]
+    [SerializeField] [Range(1, 4)] private int selectableImageCount = 4;
 
     [Header("Portrait Slots")]
     [SerializeField] private PortraitSlot[] portraitSlots;
@@ -116,6 +120,29 @@ public class PortraitAssignmentPuzzle : MonoBehaviour
 
     private readonly Dictionary<MonoBehaviour, bool> previousScriptStates = new Dictionary<MonoBehaviour, bool>();
 
+    private void OnValidate()
+    {
+        selectableImageCount = Mathf.Clamp(selectableImageCount, 1, 4);
+
+        if (portraitSlots == null)
+            return;
+
+        for (int i = 0; i < portraitSlots.Length; i++)
+        {
+            if (portraitSlots[i] == null)
+                continue;
+
+            portraitSlots[i].correctImageIndex = Mathf.Clamp(
+                portraitSlots[i].correctImageIndex,
+                0,
+                selectableImageCount - 1
+            );
+
+            if (portraitSlots[i].currentImageIndex >= selectableImageCount)
+                portraitSlots[i].currentImageIndex = -1;
+        }
+    }
+
     private void Awake()
     {
         BuildUIIfNeeded();
@@ -199,10 +226,25 @@ public class PortraitAssignmentPuzzle : MonoBehaviour
 
         PortraitSlot slot = portraitSlots[currentSlotIndex];
 
-        slot.currentImageIndex--;
+        int lastIndex = GetLastSelectableImageIndex(slot);
 
-        if (slot.currentImageIndex < -1)
-            slot.currentImageIndex = 2;
+        if (lastIndex < 0)
+        {
+            Debug.LogWarning("TEST: Keine gültigen Portrait-Materialien eingetragen.");
+            return;
+        }
+
+        if (slot.currentImageIndex < 0)
+        {
+            slot.currentImageIndex = lastIndex;
+        }
+        else
+        {
+            slot.currentImageIndex--;
+
+            if (slot.currentImageIndex < 0)
+                slot.currentImageIndex = lastIndex;
+        }
 
         slot.confirmed = false;
 
@@ -222,10 +264,25 @@ public class PortraitAssignmentPuzzle : MonoBehaviour
 
         PortraitSlot slot = portraitSlots[currentSlotIndex];
 
-        slot.currentImageIndex++;
+        int lastIndex = GetLastSelectableImageIndex(slot);
 
-        if (slot.currentImageIndex > 2)
-            slot.currentImageIndex = -1;
+        if (lastIndex < 0)
+        {
+            Debug.LogWarning("TEST: Keine gültigen Portrait-Materialien eingetragen.");
+            return;
+        }
+
+        if (slot.currentImageIndex < 0)
+        {
+            slot.currentImageIndex = 0;
+        }
+        else
+        {
+            slot.currentImageIndex++;
+
+            if (slot.currentImageIndex > lastIndex)
+                slot.currentImageIndex = 0;
+        }
 
         slot.confirmed = false;
 
@@ -233,6 +290,17 @@ public class PortraitAssignmentPuzzle : MonoBehaviour
         UpdateUIForCurrentSlot();
 
         Debug.Log("TEST: Nächstes Bild gewählt für " + slot.personName + " | Bildindex: " + slot.currentImageIndex);
+    }
+
+    private int GetLastSelectableImageIndex(PortraitSlot slot)
+    {
+        if (slot == null || slot.portraitMaterials == null || slot.portraitMaterials.Length == 0)
+            return -1;
+
+        int materialLastIndex = slot.portraitMaterials.Length - 1;
+        int selectableLastIndex = selectableImageCount - 1;
+
+        return Mathf.Min(materialLastIndex, selectableLastIndex);
     }
 
     public void ConfirmCurrentSelection()
@@ -246,6 +314,32 @@ public class PortraitAssignmentPuzzle : MonoBehaviour
         }
 
         PortraitSlot slot = portraitSlots[currentSlotIndex];
+
+        int lastIndex = GetLastSelectableImageIndex(slot);
+
+        if (lastIndex < 0)
+        {
+            Debug.LogWarning("TEST: Keine gültigen Portrait-Materialien eingetragen.");
+            return;
+        }
+
+        if (slot.currentImageIndex < 0 || slot.currentImageIndex > lastIndex)
+        {
+            Debug.LogWarning("TEST: Ungültige Auswahl. Bitte erst ein Bild auswählen.");
+            slot.confirmed = false;
+            return;
+        }
+
+        if (slot.correctImageIndex > lastIndex)
+        {
+            Debug.LogWarning(
+                "TEST: Correct Image Index ist größer als die erlaubte Bildanzahl. " +
+                "Stelle Correct Image Index auf 0 bis " + lastIndex + "."
+            );
+
+            slot.confirmed = false;
+            return;
+        }
 
         slot.confirmed = true;
 
@@ -310,13 +404,30 @@ public class PortraitAssignmentPuzzle : MonoBehaviour
 
         for (int i = 0; i < portraitSlots.Length; i++)
         {
-            if (portraitSlots[i].currentImageIndex != portraitSlots[i].correctImageIndex)
+            PortraitSlot slot = portraitSlots[i];
+
+            int lastIndex = GetLastSelectableImageIndex(slot);
+
+            if (slot.correctImageIndex > lastIndex)
+            {
+                Debug.LogWarning(
+                    "TEST: Slot " + i +
+                    " hat einen ungültigen Correct Image Index: " +
+                    slot.correctImageIndex +
+                    ". Erlaubt ist 0 bis " + lastIndex
+                );
+
+                onWrongAssignment?.Invoke();
+                return;
+            }
+
+            if (slot.currentImageIndex != slot.correctImageIndex)
             {
                 Debug.Log(
                     "TEST: GESAMTES RÄTSEL FALSCH. Fehler bei " +
-                    portraitSlots[i].personName +
-                    " | Ausgewählt: " + portraitSlots[i].currentImageIndex +
-                    " | Richtig wäre: " + portraitSlots[i].correctImageIndex
+                    slot.personName +
+                    " | Ausgewählt: " + slot.currentImageIndex +
+                    " | Richtig wäre: " + slot.correctImageIndex
                 );
 
                 onWrongAssignment?.Invoke();
@@ -346,6 +457,7 @@ public class PortraitAssignmentPuzzle : MonoBehaviour
             if (slot == null)
                 continue;
 
+            slot.correctImageIndex = Mathf.Clamp(slot.correctImageIndex, 0, selectableImageCount - 1);
             slot.currentImageIndex = -1;
             slot.confirmed = false;
 
@@ -384,6 +496,7 @@ public class PortraitAssignmentPuzzle : MonoBehaviour
         }
 
         int index = Mathf.Clamp(slot.materialIndex, 0, materials.Length - 1);
+
         materials[index] = materialToApply;
         slot.pictureRenderer.materials = materials;
 
@@ -399,6 +512,9 @@ public class PortraitAssignmentPuzzle : MonoBehaviour
             return null;
 
         if (slot.currentImageIndex < 0 || slot.currentImageIndex >= slot.portraitMaterials.Length)
+            return null;
+
+        if (slot.currentImageIndex >= selectableImageCount)
             return null;
 
         return slot.portraitMaterials[slot.currentImageIndex];
@@ -610,6 +726,7 @@ public class PortraitAssignmentPuzzle : MonoBehaviour
             leftArrowSprite,
             "←"
         );
+
         leftButton.onClick.AddListener(SelectPreviousImage);
 
         rightButton = CreateButton(
@@ -620,6 +737,7 @@ public class PortraitAssignmentPuzzle : MonoBehaviour
             rightArrowSprite,
             "→"
         );
+
         rightButton.onClick.AddListener(SelectNextImage);
 
         confirmButton = CreateButton(
